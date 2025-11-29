@@ -25,6 +25,29 @@
             text-shadow: 0 0 20px #61dafb;
         }
 
+        .verified {
+            display: inline-block;
+            background: #5865F2;
+            color: white;
+            padding: 6px 15px;
+            margin-top: 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .dev-note {
+            margin-top: 15px;
+            background: #202020;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #ffdd57;
+            border: 1px solid #333;
+            font-size: 15px;
+            box-shadow: 0 0 10px black;
+        }
+
         p {
             font-size: 20px;
             color: #bbb;
@@ -96,15 +119,23 @@
 
 <header>
     <h1>BOT PRO MAX</h1>
-    <p>أقوى بوت إدارة وحماية وتطوير للسيرفرات</p>
+
+    <!-- شارة التوثيق -->
+    <div class="verified">✔ تم توثيق البوت رسميًا</div>
+
+    <!-- رسالة التطوير -->
+    <div class="dev-note">
+        ⚙️ البوت تحت التطوير لكنه يعمل بكامل وظائفه 👌
+    </div>
 
     <div class="buttons">
         <a class="btn invite" href="https://discord.com/oauth2/authorize?client_id=1396302389279195248&permissions=8&scope=bot%20applications.commands">
             ➕ أضف البوت لسيرفرك
         </a>
 
-        <a class="btn support" href="#">
-            💬 سيرفر الدعم الفني
+        <!-- سيرفر الدعم الجديد -->
+        <a class="btn support" href="https://discord.gg/Z3RFE8Zd56" target="_blank">
+            💬 سيرفر الدعم الفني (إدارة بوت برو)
         </a>
 
         <a class="btn donate" target="_blank" href="https://www.paypal.com/">
@@ -116,21 +147,11 @@
 <section class="features">
     <h2 style="font-size: 35px; color:#61dafb;">مميزات BOT PRO MAX</h2>
 
-    <div class="feature-box">
-        🔥 إدارة كاملة للسيرفر  
-    </div>
-    <div class="feature-box">
-        🔰 حماية من السبام والرايد
-    </div>
-    <div class="feature-box">
-        🤖 أوامر ذكية وسريعة جداً  
-    </div>
-    <div class="feature-box">
-        ⚙️ نظام تذاكر متطور ومخصص
-    </div>
-    <div class="feature-box">
-        🎉 فعاليات وألعاب وتفاعل جميل
-    </div>
+    <div class="feature-box">🔥 إدارة كاملة للسيرفر</div>
+    <div class="feature-box">🔰 حماية من السبام والرايد</div>
+    <div class="feature-box">🤖 أوامر سريعة وذكية</div>
+    <div class="feature-box">⚙️ نظام تذاكر متطور</div>
+    <div class="feature-box">🎉 فعاليات وتفاعل ممتع</div>
 </section>
 
 <footer>

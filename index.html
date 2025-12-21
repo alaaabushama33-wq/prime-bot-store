@@ -1,481 +1,247 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOT PRO MAX - أقوى بوت ديسكورد عربي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #00ffff;
-            --secondary: #ff00ff;
-            --accent: #9d4edd;
-            --dark: #0f001f;
-            --darker: #0a0014;
-            --text: #e0f0ff;
-            --gray: #b0c0ff;
-            --glow-primary: 0 0 20px rgba(0, 255, 255, 0.5);
-            --glow-secondary: 0 0 20px rgba(255, 0, 255, 0.5);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: var(--darker);
-            color: var(--text);
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, #1a0044 0%, #000000 80%);
-        }
-        canvas#particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-        .navbar {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            background: rgba(15, 0, 31, 0.9);
-            backdrop-filter: blur(20px);
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 9998;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.4);
-        }
-        .logo {
-            font-size: 34px;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: var(--glow-primary);
-        }
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            padding: 10px 20px;
-            border-radius: 12px;
-            transition: all 0.4s;
-        }
-        .nav-links a:hover {
-            color: var(--primary);
-            background: rgba(0, 255, 255, 0.15);
-            box-shadow: var(--glow-primary);
-        }
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 120px 5% 100px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 5.5rem;
-            font-weight: 900;
-            margin-bottom: 25px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: var(--glow-primary);
-        }
-        .hero p {
-            font-size: 1.8rem;
-            color: var(--gray);
-            max-width: 900px;
-            margin: 30px auto 50px;
-            line-height: 1.7;
-        }
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 70px;
-            margin: 60px 0;
-            flex-wrap: wrap;
-        }
-        .stat-item {
-            background: rgba(0, 255, 255, 0.08);
-            padding: 35px;
-            border-radius: 25px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            min-width: 200px;
-            backdrop-filter: blur(12px);
-            transition: all 0.5s;
-            box-shadow: var(--glow-primary);
-        }
-        .stat-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
-        }
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            text-shadow: var(--glow-primary);
-        }
-        .cta-buttons {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-        .btn {
-            padding: 20px 50px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            border-radius: 18px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.4s;
-            box-shadow: var(--glow-primary);
-        }
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), #00e0e0);
-            color: #000;
-        }
-        .btn-primary:hover {
-            transform: translateY(-8px) scale(1.08);
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.9);
-        }
-        .btn-secondary {
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
-            color: white;
-        }
-        .btn-secondary:hover {
-            transform: translateY(-8px) scale(1.08);
-            box-shadow: 0 0 50px rgba(255, 0, 255, 0.9);
-        }
-        .section {
-            padding: 120px 5%;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 3.5rem;
-            margin-bottom: 80px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: var(--glow-primary);
-        }
-        /* قسم الأوامر */
-        .commands-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            padding: 12px 30px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 12px;
-            color: var(--text);
-            cursor: pointer;
-            transition: all 0.4s;
-        }
-        .tab-btn.active, .tab-btn:hover {
-            background: rgba(0, 255, 255, 0.2);
-            color: var(--primary);
-            box-shadow: var(--glow-primary);
-        }
-        .commands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .command-card {
-            background: rgba(25, 0, 60, 0.45);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(0, 255, 255, 0.4);
-            transition: all 0.5s;
-            box-shadow: var(--glow-primary);
-        }
-        .command-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
-        }
-        .command-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        .command-desc {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .commitment-section {
-            padding: 100px 5%;
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
-            border-top: 1px solid rgba(0, 255, 255, 0.2);
-            text-align: center;
-        }
-        footer {
-            background: rgba(10, 0, 25, 0.95);
-            padding: 80px 5% 40px;
-            text-align: center;
-            border-top: 2px solid rgba(0, 255, 255, 0.4);
-        }
-        .copyright {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray);
-        }
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3.8rem; }
-            .hero p { font-size: 1.4rem; }
-            .section-title { font-size: 2.8rem; }
-            .commands-tabs { gap: 10px; }
-            .tab-btn { padding: 10px 20px; font-size: 0.9rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOT PRO MAX - أقوى بوت ديسكورد عربي</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--primary:#00ffff;
+--secondary:#ff00ff;
+--accent:#9d4edd;
+--dark:#0f001f;
+--darker:#0a0014;
+--text:#e0f0ff;
+--gray:#b0c0ff;
+--glow:0 0 20px rgba(0,255,255,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Cairo',sans-serif;
+background:radial-gradient(circle,#1a0044 0%,#000 80%);
+color:var(--text);
+overflow-x:hidden
+}
+canvas{position:fixed;inset:0;z-index:-1;opacity:.3}
+
+/* NAV */
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:20px 5%;
+background:rgba(15,0,31,.9);
+backdrop-filter:blur(20px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid rgba(0,255,255,.4);
+z-index:999
+}
+.logo{
+font-size:34px;
+font-weight:900;
+background:linear-gradient(45deg,var(--primary),var(--secondary));
+-webkit-background-clip:text;
+color:transparent;
+display:flex;
+gap:10px
+}
+.nav-links a{
+color:var(--text);
+text-decoration:none;
+margin:0 15px;
+font-weight:600
+}
+.nav-links a:hover{color:var(--primary)}
+
+/* HERO */
+.hero{
+min-height:100vh;
+padding:140px 5% 100px;
+text-align:center
+}
+.hero h1{
+font-size:5rem;
+background:linear-gradient(45deg,var(--primary),var(--secondary),var(--accent));
+-webkit-background-clip:text;
+color:transparent
+}
+.hero p{font-size:1.5rem;color:var(--gray)}
+
+/* COMMON */
+.section{padding:120px 5%}
+.section-title{
+text-align:center;
+font-size:3.2rem;
+margin-bottom:70px;
+background:linear-gradient(45deg,var(--primary),var(--secondary));
+-webkit-background-clip:text;
+color:transparent
+}
+.commands-tabs{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-bottom:40px;
+flex-wrap:wrap
+}
+.tab-btn{
+padding:12px 30px;
+border-radius:12px;
+background:rgba(0,255,255,.1);
+border:1px solid rgba(0,255,255,.3);
+cursor:pointer
+}
+.tab-btn.active,.tab-btn:hover{
+background:rgba(0,255,255,.2);
+color:var(--primary);
+box-shadow:var(--glow)
+}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+max-width:1400px;
+margin:auto
+}
+.card{
+background:rgba(25,0,60,.45);
+border-radius:20px;
+padding:25px;
+border:1px solid rgba(0,255,255,.4);
+box-shadow:var(--glow);
+transition:.4s
+}
+.card:hover{transform:translateY(-8px)}
+.card h3{color:var(--primary)}
+.card p{color:var(--gray)}
+
+/* BUTTONS */
+.btns{margin-top:15px;display:flex;gap:15px;flex-wrap:wrap}
+.btn{
+padding:12px 25px;
+border-radius:12px;
+text-decoration:none;
+font-weight:700
+}
+.btn-primary{background:var(--primary);color:#000}
+.btn-secondary{background:linear-gradient(45deg,var(--secondary),var(--accent));color:#fff}
+
+/* FOOTER */
+footer{
+padding:70px 5%;
+background:#080014;
+text-align:center;
+border-top:2px solid rgba(0,255,255,.4)
+}
+</style>
 </head>
+
 <body>
-    <canvas id="particles"></canvas>
+<canvas id="particles"></canvas>
 
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-robot"></i>
-            BOT PRO MAX
-        </div>
-        <div class="nav-links">
-            <a href="#home">الرئيسية</a>
-            <a href="#features">المميزات</a>
-            <a href="#commands">الأوامر</a>
-        </div>
-    </nav>
+<nav class="navbar">
+<div class="logo"><i class="fas fa-robot"></i>BOT PRO MAX</div>
+<div class="nav-links">
+<a href="#home">الرئيسية</a>
+<a href="#features">المميزات</a>
+<a href="#games">الألعاب</a>
+<a href="#commands">الأوامر</a>
+</div>
+</nav>
 
-    <section class="hero" id="home">
-         <p>فيديو من قناتي </p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/71MfbZZjtB8?si=qwaWKwbc8jPzT4RG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <h1>BOT PRO MAX</h1>
-        <p>أقوى بوت ديسكورد عربي • حماية متقدمة • إدارة احترافية • أوامر قوية وسهلة</p>
+<section class="hero" id="home">
+<h1>BOT PRO MAX</h1>
+<p>أقوى بوت ديسكورد عربي • حماية • إدارة • ألعاب</p>
+</section>
 
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-number" id="serversCount">0</span>
-                <span class="stat-label">سيرفر نشط</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="commandsCount">0+</span>
-                <span class="stat-label">أمر slash</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">100%</span>
-                <span class="stat-label">حماية وأمان</span>
-            </div>
-        </div>
+<section class="section" id="games">
+<h2 class="section-title">🎮 مكتبة الألعاب</h2>
 
-        <div class="cta-buttons">
-            <a href="https://discord.com/oauth2/authorize?client_id=1396302389279195248&permissions=8&scope=bot%20applications.commands" class="btn btn-primary">
-                <i class="fas fa-plus-circle"></i>
-                أضف البوت الآن
-            </a>
-            <a href="https://discord.gg/m6ebrHrX7J" target="_blank" class="btn btn-secondary">
-                <i class="fas fa-headset"></i>
-                سيرفر الدعم
-            </a>
-        </div>
-    </section>
+<div class="commands-tabs">
+<div class="tab-btn active" data-tab="online">أونلاين</div>
+<div class="tab-btn" data-tab="offline">أوفلاين</div>
+</div>
 
-    <section class="section" id="features">
-        <h2 class="section-title">المميزات الاحترافية</h2>
-        <div class="commands-grid">
-            <div class="command-card">
-                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>حماية قوية</h3>
-                <p>أنظمة ضد الرايد، السبام، والتهديدات مع ردود فورية.</p>
-            </div>
-            <div class="command-card">
-                <div class="feature-icon"><i class="fas fa-cogs"></i></div>
-                <h3>إدارة شاملة</h3>
-                <p>حظر، طرد، كتم، مسح، أدوار، إ Slowmode، وقفل القنوات.</p>
-            </div>
-            <div class="command-card">
-                <div class="feature-icon"><i class="fas fa-bullhorn"></i></div>
-                <h3>إعلانات وتفاعل</h3>
-                <p>بث، استطلاعات، اقتراحات، وأوامر تفاعلية.</p>
-            </div>
-            <div class="command-card">
-                <div class="feature-icon"><i class="fas fa-info-circle"></i></div>
-                <h3>معلومات مفصلة</h3>
-                <p>معلومات العضو، السيرفر، الأفاتار، والدعوات.</p>
-            </div>
-        </div>
-    </section>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/7lNKkzNjSK0?si=gIUjcIKIDyiWz2Fa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <!-- قسم الأوامر الجديد -->
-    <section class="section" id="commands">
-        <h2 class="section-title">جميع الأوامر (Slash Commands)</h2>
-        
-        <div class="commands-tabs">
-            <div class="tab-btn active" data-tab="admin">إدارة عامة</div>
-            <div class="tab-btn" data-tab="channels">إدارة القنوات</div>
-            <div class="tab-btn" data-tab="interaction">إعلانات وتفاعل</div>
-            <div class="tab-btn" data-tab="info">معلومات</div>
-            <div class="tab-btn" data-tab="other">أخرى</div>
-        </div>
+<div class="tab-content active" id="online">
+<div class="grid">
 
-        <div class="tab-content active" id="admin">
-            <div class="commands-grid">
-                <div class="command-card"><div class="command-name">/ban</div><div class="command-desc">حظر عضو من السيرفر مع سبب اختياري</div></div>
-                <div class="command-card"><div class="command-name">/unban</div><div class="command-desc">إلغاء حظر عضو</div></div>
-                <div class="command-card"><div class="command-name">/kick</div><div class="command-desc">طرد عضو من السيرفر</div></div>
-                <div class="command-card"><div class="command-name">/mute</div><div class="command-desc">كتم عضو لمدة محددة</div></div>
-                <div class="command-card"><div class="command-name">/unmute</div><div class="command-desc">إلغاء كتم عضو</div></div>
-                <div class="command-card"><div class="command-name">/clear</div><div class="command-desc">مسح عدد محدد من الرسائل</div></div>
-                <div class="command-card"><div class="command-name">/role</div><div class="command-desc">إعطاء أو إزالة رتبة من عضو</div></div>
-                <div class="command-card"><div class="command-name">/temprole</div><div class="command-desc">إعطاء رتبة مؤقتة لعضو</div></div>
-            </div>
-        </div>
+<div class="card">
+<h3>Among Us 🌐</h3>
+<p>لعبة اجتماعية للبحث عن المخادع</p>
+<div class="btns">
+<a class="btn btn-primary" href="#">تحميل</a>
+<a class="btn btn-secondary" href="#">عرض في البوت</a>
+</div>
+</div>
 
-        <div class="tab-content" id="channels">
-            <div class="commands-grid">
-                <div class="command-card"><div class="command-name">/lock</div><div class="command-desc">قفل قناة (منع الكتابة)</div></div>
-                <div class="command-card"><div class="command-name">/unlock</div><div class="command-desc">فتح قناة مقفلة</div></div>
-                <div class="command-card"><div class="command-name">/slowmode</div><div class="command-desc">تفعيل وضع البطيء في القناة</div></div>
-                <div class="command-card"><div class="command-name">/lockdown</div><div class="command-desc">قفل كامل للسيرفر (حالات الطوارئ)</div></div>
-            </div>
-        </div>
+<div class="card">
+<h3>Fortnite 🔫</h3>
+<p>باتل رويال تنافسي عالمي</p>
+<div class="btns">
+<a class="btn btn-primary" href="#">الموقع الرسمي</a>
+<a class="btn btn-secondary" href="#">عرض في البوت</a>
+</div>
+</div>
 
-        <div class="tab-content" id="interaction">
-            <div class="commands-grid">
-                <div class="command-card"><div class="command-name">/broadcast</div><div class="command-desc">إرسال رسالة بث لجميع الأعضاء</div></div>
-                <div class="command-card"><div class="command-name">/say</div><div class="command-desc">جعل البوت يكتب رسالة نيابة عنك</div></div>
-                <div class="command-card"><div class="command-name">/suggest</div><div class="command-desc">إرسال اقتراح في قناة مخصصة</div></div>
-                <div class="command-card"><div class="command-name">/poll</div><div class="command-desc">إنشاء استطلاع رأي تفاعلي</div></div>
-            </div>
-        </div>
+</div>
+</div>
 
-        <div class="tab-content" id="info">
-            <div class="commands-grid">
-                <div class="command-card"><div class="command-name">/avatar</div><div class="command-desc">عرض أفاتار عضو مكبر</div></div>
-                <div class="command-card"><div class="command-name">/user</div><div class="command-desc">معلومات مفصلة عن عضو</div></div>
-                <div class="command-card"><div class="command-name">/server</div><div class="command-desc">معلومات عامة عن السيرفر</div></div>
-                <div class="command-card"><div class="command-name">/serverinfo</div><div class="command-desc">معلومات متقدمة عن السيرفر</div></div>
-                <div class="command-card"><div class="command-name">/invite</div><div class="command-desc">إنشاء رابط دعوة</div></div>
-                <div class="command-card"><div class="command-name">/myservers</div><div class="command-desc">عرض السيرفرات المشتركة (لصاحب البوت)</div></div>
-                <div class="command-card"><div class="command-name">/onlineserver</div><div class="command-desc">حالة السيرفر أونلاين</div></div>
-                <div class="command-card"><div class="command-name">/serverbot</div><div class="command-desc">معلومات عن البوتات في السيرفر</div></div>
-            </div>
-        </div>
+<div class="tab-content" id="offline">
+<div class="grid">
 
-        <div class="tab-content" id="other">
-            <div class="commands-grid">
-                <div class="command-card"><div class="command-name">/welcome</div><div class="command-desc">إعداد رسالة الترحيب</div></div>
-                <div class="command-card"><div class="command-name">/paypal</div><div class="command-desc">عرض رابط التبرع أو الدفع</div></div>
-                <div class="command-card"><div class="command-name">/soon</div><div class="command-desc">عرض المميزات القادمة</div></div>
-            </div>
-        </div>
-    </section>
+<div class="card">
+<h3>The Last Of Us 🧟</h3>
+<p>قصة بقاء قوية وتجربة سينمائية</p>
+<div class="btns">
+<a class="btn btn-primary" href="#">تحميل</a>
+<a class="btn btn-secondary" href="#">المتطلبات</a>
+</div>
+</div>
 
-    <section class="commitment-section">
-        <i class="fas fa-heartbeat"></i>
-        <h2>التزامنا بالجودة والاستمرارية</h2>
-        <p>
-            نحن نعمل باستمرار على تطوير BOT PRO MAX 💙<br><br>
-            يتم تحديث البوت بشكل دوري لإضافة مميزات جديدة وتحسين الأداء،<br>
-            مع ضمان عدم انقطاع الخدمة أبداً.<br><br>
-            هدفنا: أن يكون البوت دائماً في أفضل حالاته لخدمة سيرفرك بأعلى كفاءة 🚀
-        </p>
-    </section>
+<div class="card">
+<h3>Red Dead Redemption 2 🤠</h3>
+<p>عالم مفتوح واقعي ضخم</p>
+<div class="btns">
+<a class="btn btn-primary" href="#">تحميل</a>
+<a class="btn btn-secondary" href="#">المتطلبات</a>
+</div>
+</div>
 
-    <footer>
-        <div class="logo" style="font-size: 3rem; margin-bottom: 30px;">
-            <i class="fas fa-robot"></i>
-            BOT PRO MAX
-        </div>
-        <p style="color: var(--gray); max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;">
-            أقوى بوت ديسكورد عربي • مصمم ليخدمك باحترافية وثبات
-        </p>
-        <a href="https://discord.gg/m6ebrHrX7J" target="_blank" class="btn btn-secondary" style="font-size: 1.3rem;">
-            <i class="fab fa-discord"></i> انضم لسيرفر الدعم والمجتمع
-        </a>
-        <div class="copyright">
-            © 2025 BOT PRO MAX - جميع الحقوق محفوظة | بدعم من فريق شغوف بالتميز 🌟
-        </div>
-    </footer>
+</div>
+</div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles", {
-            particles: {
-                number: { value: 70 },
-                color: { value: ["#00ffff", "#ff00ff"] },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: "#00ffff", opacity: 0.2, width: 1 },
-                move: { enable: true, speed: 2 }
-            },
-            interactivity: { events: { onhover: { enable: true, mode: "repulse" } } }
-        });
+<section class="section" id="commands">
+<h2 class="section-title">الأوامر</h2>
+<p style="text-align:center;color:var(--gray)">تم عرضها داخل البوت باستخدام Slash Commands</p>
+</section>
 
-        // تبويبات الأوامر
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById(btn.dataset.tab).classList.add('active');
-            });
-        });
+<footer>
+<h2 class="logo"><i class="fas fa-robot"></i> BOT PRO MAX</h2>
+<p>© 2025 جميع الحقوق محفوظة</p>
+</footer>
 
-        // العدادات
-        function animateCounter(id, target, suffix = '') {
-            let count = 0;
-            const element = document.getElementById(id);
-            const increment = target / 100;
-            const timer = setInterval(() => {
-                count += increment;
-                if (count >= target) {
-                    element.textContent = target.toLocaleString() + suffix;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(count).toLocaleString();
-                }
-            }, 20);
-        }
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+particlesJS("particles",{particles:{number:{value:60},color:{value:["#00ffff","#ff00ff"]},size:{value:3}},interactivity:{events:{onhover:{enable:true,mode:"repulse"}}}});
 
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                animateCounter('serversCount', 2100);
-                animateCounter('commandsCount', 27, '+');
-                observer.unobserve(entries[0].target);
-            }
-        });
-        observer.observe(document.querySelector('.stats'));
-    </script>
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+btn.onclick=()=>{
+document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+btn.classList.add("active");
+document.getElementById(btn.dataset.tab).classList.add("active");
+}
+});
+</script>
+
 </body>
 </html>

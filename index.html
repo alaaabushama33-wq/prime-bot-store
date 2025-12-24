@@ -1,1144 +1,187 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إيقاف خدمات BOT PRO MAX نهائياً 🕯️</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1828/1828843.png">
-    <style>
-        :root {
-            --primary: #8B0000;
-            --secondary: #4A4A4A;
-            --accent: #B8860B;
-            --gold: #8B7355;
-            --dark: #0a0a0a;
-            --darker: #050505;
-            --card-bg: rgba(30, 10, 10, 0.95);
-            --text: #E0E0E0;
-            --text-secondary: #AAAAAA;
-            --gradient: linear-gradient(135deg, var(--primary), #5D0000, var(--accent));
-            --gold-gradient: linear-gradient(135deg, #8B7355, #5D4037, #3E2723);
-            --shadow: 0 15px 35px rgba(139, 0, 0, 0.25);
-            --gold-shadow: 0 15px 35px rgba(139, 115, 85, 0.35);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: radial-gradient(ellipse at top, #1A0000 0%, #000000 100%);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.8;
-        }
-        
-        /* خلفية حزينة مع توهج أحمر داكن */
-        .background-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(77, 0, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(77, 0, 0, 0.05) 0%, transparent 50%);
-            z-index: -2;
-            animation: glow-pulse 10s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow-pulse {
-            0% { opacity: 0.2; transform: scale(1); }
-            100% { opacity: 0.4; transform: scale(1.05); }
-        }
-        
-        /* نجوم متحركة بضوء خافت */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        
-        .star {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            animation: twinkle 5s infinite;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.3; }
-        }
-        
-        /* أمطار رماد */
-        .ash-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .ash-particle {
-            position: absolute;
-            background: rgba(100, 100, 100, 0.5);
-            border-radius: 50%;
-            animation: ash-fall linear infinite;
-        }
-        
-        @keyframes ash-fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* شريط الإعلان العلوي */
-        .top-banner {
-            background: var(--gold-gradient);
-            color: #E0E0E0;
-            text-align: center;
-            padding: 15px;
-            font-weight: 900;
-            font-size: 1.3rem;
-            position: relative;
-            overflow: hidden;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 40px;
-            box-shadow: var(--gold-shadow);
-            border-bottom: 3px solid var(--primary);
-        }
-        
-        /* الهيدر */
-        .hero {
-            text-align: center;
-            padding: 60px 0 40px;
-            position: relative;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .main-logo {
-            font-size: 5.5rem;
-            font-weight: 900;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
-            animation: logo-fade 4s infinite alternate;
-        }
-        
-        @keyframes logo-fade {
-            0% { text-shadow: 0 0 20px rgba(139, 0, 0, 0.3); }
-            100% { text-shadow: 0 0 40px rgba(139, 0, 0, 0.7); }
-        }
-        
-        .version {
-            display: inline-block;
-            background: var(--gold-gradient);
-            color: #E0E0E0;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            box-shadow: var(--gold-shadow);
-            border: 3px solid rgba(139, 0, 0, 0.5);
-        }
-        
-        .hero-tagline {
-            font-size: 2.2rem;
-            color: var(--text-secondary);
-            margin-top: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            padding: 20px;
-            border-top: 1px solid rgba(139, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
-        }
-        
-        /* بطاقة الإيقاف */
-        .closure-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(25px);
-            border-radius: 40px;
-            padding: 60px;
-            margin: 50px 0;
-            border: 3px solid rgba(139, 0, 0, 0.5);
-            box-shadow: 
-                var(--shadow),
-                inset 0 0 100px rgba(139, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .closure-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: var(--gradient);
-            opacity: 0.05;
-            filter: blur(100px);
-            z-index: 1;
-        }
-        
-        .closure-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .closure-title {
-            font-size: 3.5rem;
-            text-align: center;
-            margin-bottom: 40px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .closure-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 300px;
-            height: 3px;
-            background: var(--gradient);
-            border-radius: 5px;
-        }
-        
-        .closure-message {
-            font-size: 1.8rem;
-            text-align: center;
-            color: var(--text-secondary);
-            line-height: 1.9;
-            margin-bottom: 50px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 30px;
-            background: rgba(139, 0, 0, 0.1);
-            border-radius: 20px;
-            border-right: 5px solid var(--primary);
-        }
-        
-        /* شارات الذكريات */
-        .badges-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin: 50px 0;
-        }
-        
-        .badge {
-            background: rgba(50, 20, 20, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 25px 35px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            min-width: 300px;
-            border: 2px solid rgba(139, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .badge:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-            background: rgba(139, 0, 0, 0.15);
-        }
-        
-        .badge-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-        }
-        
-        .badge-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: #E0E0E0;
-        }
-        
-        .badge-content p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-        
-        /* إحصائيات نهائية */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 80px 0;
-        }
-        
-        .stat-card {
-            background: rgba(40, 15, 15, 0.7);
-            border-radius: 25px;
-            padding: 40px 30px;
-            text-align: center;
-            border: 2px solid rgba(139, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
-        }
-        
-        .stat-number {
-            font-size: 4rem;
-            font-weight: 900;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
-        }
-        
-        .stat-label {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-        }
-        
-        /* رسالة الوداع */
-        .farewell-message {
-            background: rgba(30, 10, 10, 0.9);
-            border-radius: 30px;
-            padding: 60px;
-            margin: 80px 0;
-            border: 3px solid rgba(139, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .farewell-message::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238B0000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
-        
-        .farewell-title {
-            font-size: 3rem;
-            color: var(--accent);
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .farewell-text {
-            font-size: 1.5rem;
-            line-height: 2;
-            color: var(--text-secondary);
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .signature {
-            text-align: left;
-            margin-top: 50px;
-            font-size: 1.8rem;
-            color: var(--accent);
-            border-top: 1px solid rgba(139, 0, 0, 0.3);
-            padding-top: 20px;
-        }
-        
-        /* الأزرار */
-        .buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 50px auto;
-        }
-        
-        .action-btn {
-            background: var(--gold-gradient);
-            border: none;
-            border-radius: 25px;
-            padding: 35px 30px;
-            color: #E0E0E0;
-            font-size: 1.5rem;
-            font-weight: 800;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--gold-shadow);
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-10px);
-            box-shadow: 
-                var(--shadow),
-                0 0 50px rgba(139, 0, 0, 0.3);
-            background: linear-gradient(135deg, #8B0000, #5D0000, #8B7355);
-        }
-        
-        .action-btn i {
-            font-size: 3rem;
-        }
-        
-        .action-btn.secondary {
-            background: rgba(50, 20, 20, 0.7);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(139, 0, 0, 0.5);
-        }
-        
-        .action-btn.secondary:hover {
-            background: rgba(139, 0, 0, 0.2);
-            border-color: var(--primary);
-        }
-        
-        /* الذكريات */
-        .memories-section {
-            margin: 100px 0;
-        }
-        
-        .memories-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 60px;
-            color: var(--accent);
-            position: relative;
-        }
-        
-        .memories-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 200px;
-            height: 2px;
-            background: var(--gradient);
-        }
-        
-        .memories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 35px;
-        }
-        
-        .memory-card {
-            background: rgba(40, 15, 15, 0.8);
-            border-radius: 25px;
-            padding: 40px 35px;
-            border: 2px solid rgba(139, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .memory-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-10px);
-            box-shadow: var(--shadow);
-        }
-        
-        .memory-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient);
-        }
-        
-        .memory-icon {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 25px;
-            display: inline-block;
-        }
-        
-        .memory-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-        
-        .memory-desc {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-        
-        /* الفوتر */
-        .footer {
-            margin-top: 120px;
-            padding: 60px 0 40px;
-            border-top: 2px solid rgba(139, 0, 0, 0.3);
-            text-align: center;
-            background: rgba(20, 5, 5, 0.8);
-            border-radius: 30px 30px 0 0;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 40px 0;
-        }
-        
-        .social-link {
-            width: 70px;
-            height: 70px;
-            background: rgba(50, 20, 20, 0.7);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--text);
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .social-link:hover {
-            background: var(--gradient);
-            color: white;
-            transform: translateY(-8px);
-            box-shadow: var(--shadow);
-        }
-        
-        .copyright {
-            color: var(--text-secondary);
-            margin-top: 40px;
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-        
-        /* التنبيهات */
-        .closure-notification {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--gradient);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            animation: slide-up 0.5s ease;
-            border-right: 5px solid var(--accent);
-        }
-        
-        @keyframes slide-up {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        /* نص الإيقاف مع تأثيرات */
-        .closure-text {
-            font-size: 5rem;
-            text-align: center;
-            color: var(--primary);
-            margin: 50px 0;
-            font-weight: 900;
-            text-shadow: 0 0 30px rgba(139, 0, 0, 0.7);
-            animation: closure-pulse 3s infinite;
-            position: relative;
-        }
-        
-        @keyframes closure-pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-        
-        /* التجاوب */
-        @media (max-width: 1200px) {
-            .main-logo { font-size: 4.5rem; }
-            .closure-title { font-size: 3rem; }
-            .closure-text { font-size: 4rem; }
-        }
-        
-        @media (max-width: 992px) {
-            .main-logo { font-size: 3.5rem; }
-            .hero-tagline { font-size: 1.6rem; }
-            .closure-card { padding: 40px 30px; }
-            .memories-grid { grid-template-columns: repeat(2, 1fr); }
-            .closure-text { font-size: 3rem; }
-        }
-        
-        @media (max-width: 768px) {
-            .container { padding: 15px; }
-            .main-logo { font-size: 2.8rem; }
-            .hero-tagline { font-size: 1.4rem; }
-            .closure-title { font-size: 2.5rem; }
-            .closure-message { font-size: 1.5rem; }
-            .memories-grid { grid-template-columns: 1fr; }
-            .badge { min-width: 100%; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-            .buttons-grid { grid-template-columns: 1fr; }
-            .closure-text { font-size: 2.5rem; }
-        }
-        
-        @media (max-width: 576px) {
-            .main-logo { font-size: 2.2rem; }
-            .closure-title { font-size: 2rem; }
-            .closure-message { font-size: 1.2rem; }
-            .stats { grid-template-columns: 1fr; }
-            .badge { flex-direction: column; text-align: center; }
-            .closure-text { font-size: 2rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إشعار رسمي – Bot Pro Max</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#050505;
+    --bg2:#0b0b0b;
+    --text:#e0e0e0;
+    --muted:#9b9b9b;
+    --danger:#8b0000;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:'Cairo',sans-serif;
+    background:
+        radial-gradient(circle at top,#111 0%,#000 60%);
+    color:var(--text);
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* رماد متساقط */
+.ash{
+    position:fixed;
+    top:-10px;
+    width:3px;
+    height:3px;
+    background:rgba(255,255,255,0.4);
+    border-radius:50%;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+
+/* تشويش خفيف */
+.noise{
+    position:fixed;
+    inset:0;
+    background:url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity:.04;
+    pointer-events:none;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:80px 20px;
+    text-align:center;
+}
+
+/* الشعار */
+.logo{
+    font-size:3.5rem;
+    font-weight:700;
+    letter-spacing:2px;
+    margin-bottom:30px;
+    color:#b30000;
+    text-shadow:0 0 20px rgba(139,0,0,.6);
+}
+
+/* خط فاصل */
+.divider{
+    width:120px;
+    height:2px;
+    background:var(--danger);
+    margin:30px auto;
+    opacity:.6;
+}
+
+/* الرسالة */
+.message{
+    font-size:1.5rem;
+    line-height:2.2;
+    color:var(--text);
+    margin-top:40px;
+}
+
+.message strong{
+    color:#ff4d4d;
+}
+
+.sub{
+    margin-top:40px;
+    color:var(--muted);
+    font-size:1.1rem;
+    line-height:1.9;
+}
+
+/* توقيع */
+.signature{
+    margin-top:60px;
+    font-size:1.2rem;
+    color:#cfcfcf;
+}
+
+footer{
+    margin-top:100px;
+    font-size:0.95rem;
+    color:#777;
+}
+
+/* وميض خافت */
+@keyframes pulse{
+    0%{opacity:.7}
+    100%{opacity:1}
+}
+.logo{animation:pulse 3s infinite alternate}
+</style>
 </head>
+
 <body>
-    <!-- الخلفية -->
-    <div class="background-glow"></div>
-    <div class="stars" id="stars"></div>
-    <div class="ash-rain" id="ashRain"></div>
-    
-    <!-- شريط الإعلان العلوي -->
-    <div class="top-banner">
-        🕯️ <span id="user-count">25,843</span> مستخدم ودعوا البوت للأبد • الإيقاف النهائي • نهاية رحلة • 🕯️
+
+<div class="noise"></div>
+
+<div class="container">
+
+    <div class="logo">BOT PRO MAX</div>
+
+    <div class="divider"></div>
+
+    <div class="message">
+        ⚠️ <strong>إشعار إيقاف نهائي</strong> ⚠️<br><br>
+        نعلن رسميًا أنه تم <strong>إيقاف جميع خدمات Bot Pro Max إلى الأبد</strong>.<br>
+        هذا القرار نهائي وغير قابل للتراجع.
     </div>
-    
-    <div class="container">
-        <!-- الهيدر الرئيسي -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="main-logo">
-                    <span><i class="fas fa-robot" style="color: #8B0000;"></i></span>
-                    BOT PRO MAX
-                </h1>
-                <div class="version">
-                    V2.0 • نهاية الرحلة
-                </div>
-                <p class="hero-tagline">
-                    رحلة جميلة انتهت، وذاكرة لن تُنسى... شكراً لكل من سار معنا في هذه المغامرة
-                </p>
-            </div>
-        </section>
-        
-        <!-- نص الإيقاف الرئيسي -->
-        <div class="closure-text">
-            تم إيقاف جميع الخدمات للأبد
-        </div>
-        
-        <!-- بطاقة الإيقاف النهائي -->
-        <section class="closure-card">
-            <div class="closure-content">
-                <h2 class="closure-title">نهاية رحلة BOT PRO MAX 🕯️</h2>
-                <p class="closure-message">
-                    بعد رحلة طويلة من العطاء والخدمة، نعلن رسمياً عن <strong>إيقاف جميع خدمات BOT PRO MAX بشكل نهائي</strong>. 
-                    لقد كانت رحلة مليئة بالتحديات والإنجازات، لكن كل شيء له نهاية. 
-                    نعتذر إذا كنا قد أزعجنا أي أحد خلال رحلتنا، ونشكر كل من دعمنا ووقف معنا.
-                    <br><br>
-                    <strong>سامحونا إذا ضررناكم بأي شكل، لم نكن نقصد إلا الخير والخدمة.</strong>
-                </p>
-                
-                <!-- شارات الذكريات -->
-                <div class="badges-container">
-                    <div class="badge">
-                        <div class="badge-icon">
-                            <i class="fas fa-history"></i>
-                        </div>
-                        <div class="badge-content">
-                            <h3>رحلة 3 سنوات</h3>
-                            <p>من 2022 إلى 2025</p>
-                        </div>
-                    </div>
-                    
-                    <div class="badge">
-                        <div class="badge-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="badge-content">
-                            <h3>25,843 مستخدم</h3>
-                            <p>وثقوا بنا وشاركونا الرحلة</p>
-                        </div>
-                    </div>
-                    
-                    <div class="badge">
-                        <div class="badge-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="badge-content">
-                            <h3>2,500+ سيرفر</h3>
-                            <p>استضافوا البوت وشاركوا في النجاح</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- الإحصائيات النهائية -->
-        <section class="stats">
-            <div class="stat-card">
-                <div class="stat-number" id="servers">2,500+</div>
-                <div class="stat-label">سيرفر استضاف البوت</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-number" id="commands">150+</div>
-                <div class="stat-label">أمر تم تنفيذهم</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-number" id="uptime">99.9%</div>
-                <div class="stat-label">نسبة التشغيل المستمر</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-number" id="users">25K+</div>
-                <div class="stat-label">مستخدم استفاد من الخدمات</div>
-            </div>
-        </section>
-        
-        <!-- رسالة الوداع الرسمية -->
-        <section class="farewell-message">
-            <h2 class="farewell-title">📜 رسالة الوداع الرسمية</h2>
-            <p class="farewell-text">
-                إلى جميع مستخدمي BOT PRO MAX الأعزاء،<br><br>
-                
-                نكتب لكم هذه الرسالة بقلوب ثقيلة وأعين دامعة، لنعلن نهاية رحلة كانت مليئة بالإنجازات والذكريات الجميلة. 
-                لقد كان شرفاً لنا أن نخدمكم على مدار السنوات الماضية، وأن نكون جزءاً من مجتمعكم الرائع.<br><br>
-                
-                قرار الإيقاف لم يكن سهلاً، بل كان من أصعب القرارات التي اتخذناها. ظروف خارجة عن إرادتنا 
-                أجبرتنا على إغلاق هذا المشروع الذي كان بمثابة طفلنا الذي نشأ ونما بين أيدينا.<br><br>
-                
-                <strong>نعتذر من كل من تضرر منا بأي شكل من الأشكال</strong>، سواء بقصد أو بدون قصد. 
-                لم يكن هدفنا إلا تقديم أفضل خدمة ممكنة، ونسأل الله أن يتقبل منا حسناتنا ويتجاوز عن أخطائنا.<br><br>
-                
-                ستبقى ذكريات هذه الرحلة محفورة في قلوبنا، وسنظل نذكر بكل فخر تلك الأيام التي كنا فيها جزءاً من مجتمعكم.<br><br>
-                
-                دمتم بخير، وتقبلوا منا أحر التحيات وأصدق المشاعر.
-            </p>
-            <div class="signature">
-                فريق تطوير BOT PRO MAX<br>
-                ٢٠٢٥/٠٦/٠٨
-            </div>
-        </section>
-        
-        <!-- الذكريات -->
-        <section class="memories-section">
-            <h2 class="memories-title">🕊️ ذكريات لن تُنسى</h2>
-            <div class="memories-grid">
-                <div class="memory-card">
-                    <div class="memory-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3 class="memory-title">الإطلاق الأول</h3>
-                    <p class="memory-desc">
-                        ذلك اليوم التاريخي عندما أطلقنا النسخة الأولى وسط تفاعل رائع من المجتمع.
-                    </p>
-                </div>
-                
-                <div class="memory-card">
-                    <div class="memory-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="memory-title">المجتمع الرائع</h3>
-                    <p class="memory-desc">
-                        أكثر من 25 ألف مستخدم شكلوا عائلة واحدة، تشاركوا الدعم والمساعدة.
-                    </p>
-                </div>
-                
-                <div class="memory-card">
-                    <div class="memory-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3 class="memory-title">سطور من الكود</h3>
-                    <p class="memory-desc">
-                        آلاف السطور البرمجية التي كتبت بحب وعناية لخدمتكم على أكمل وجه.
-                    </p>
-                </div>
-                
-                <div class="memory-card">
-                    <div class="memory-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="memory-title">تقييم 5 نجوم</h3>
-                    <p class="memory-desc">
-                        شهادات الثقة والتقييمات العالية التي حصلنا عليها من مستخدمين كرام.
-                    </p>
-                </div>
-                
-                <div class="memory-card">
-                    <div class="memory-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3 class="memory-title">الدعم الفني</h3>
-                    <p class="memory-desc">
-                        ساعات طويلة من العمل والدعم الفني لحل مشكلاتكم بأسرع وقت ممكن.
-                    </p>
-                </div>
-                
-                <div class="memory-card">
-                    <div class="memory-icon">
-                        <i class="fas fa-hourglass-end"></i>
-                    </div>
-                    <h3 class="memory-title">النهاية</h3>
-                    <p class="memory-desc">
-                        كل شيء جميل له نهاية، وشرف لنا أن نكون جزءاً من رحلتكم.
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- روابط الذكريات -->
-        <div class="buttons-grid">
-            <a href="#" class="action-btn secondary">
-                <i class="fas fa-images"></i>
-                <span>ألبوم الذكريات</span>
-                <small>لقطات من رحلتنا معاً</small>
-            </a>
-            
-            <a href="#" class="action-btn">
-                <i class="fas fa-book"></i>
-                <span>قراءة القصة الكاملة</span>
-                <small>من البداية إلى النهاية</small>
-            </a>
-            
-            <a href="#" class="action-btn secondary">
-                <i class="fas fa-envelope"></i>
-                <span>اتصل بنا للمرة الأخيرة</span>
-                <small>للاستفسارات النهائية</small>
-            </a>
-        </div>
-        
-        <!-- الفوتر -->
-        <footer class="footer">
-            <div class="social-links">
-                <a href="#" class="social-link">
-                    <i class="fas fa-archive"></i>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fas fa-history"></i>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fas fa-heart"></i>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fas fa-moon"></i>
-                </a>
-            </div>
-            <p class="copyright">
-                © 2022-2025 BOT PRO MAX • نهاية الرحلة<br>
-                تم تقديم الخدمة بكل حب وإخلاص • رحم الله أيامنا الجميلة
-            </p>
-        </footer>
+
+    <div class="sub">
+        بعد سنوات من العمل، التطوير، والدعم المستمر،  
+        وصلنا إلى نقطة لم يعد فيها الاستمرار ممكنًا.<br><br>
+
+        نعتذر بصدق إذا كان هذا المشروع قد سبب لأي شخص ضررًا مباشرًا أو غير مباشر.<br>
+        لم يكن هدفنا يومًا إلا تقديم أفضل تجربة ممكنة.
     </div>
-    
-    <!-- إشعار وداعي -->
-    <div class="closure-notification" id="closureNotification">
-        <i class="fas fa-candle-holder"></i>
-        <div>
-            <strong>نهاية الرحلة</strong><br>
-            <small>ذكريات جميلة ستظل معنا للأبد</small>
-        </div>
+
+    <div class="signature">
+        سامحونا.<br>
+        شكرًا لكل من وثق بنا يومًا.
     </div>
-    
-    <script>
-        // إنشاء النجوم العشوائية
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = 80;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                
-                const size = Math.random() * 2 + 1;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 5 + 3;
-                const delay = Math.random() * 5;
-                
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.animationDuration = `${duration}s`;
-                star.style.animationDelay = `${delay}s`;
-                
-                starsContainer.appendChild(star);
-            }
-        }
-        
-        // إنشاء أمطار الرماد
-        function createAshRain() {
-            const ashContainer = document.getElementById('ashRain');
-            const ashCount = 100;
-            
-            for (let i = 0; i < ashCount; i++) {
-                const ash = document.createElement('div');
-                ash.className = 'ash-particle';
-                
-                const size = Math.random() * 5 + 2;
-                const x = Math.random() * 100;
-                const duration = Math.random() * 10 + 10;
-                const delay = Math.random() * 5;
-                const opacity = Math.random() * 0.5 + 0.3;
-                
-                ash.style.width = `${size}px`;
-                ash.style.height = `${size}px`;
-                ash.style.left = `${x}%`;
-                ash.style.animationDuration = `${duration}s`;
-                ash.style.animationDelay = `${delay}s`;
-                ash.style.opacity = opacity;
-                
-                ashContainer.appendChild(ash);
-            }
-        }
-        
-        // تأثيرات الشموع المتلاشية
-        function createFadingCandles() {
-            const candles = document.querySelectorAll('.fa-candle-holder, .fa-fire');
-            candles.forEach(candle => {
-                setInterval(() => {
-                    candle.style.opacity = Math.random() > 0.5 ? '0.7' : '1';
-                }, 1000);
-            });
-        }
-        
-        // تحديث الإحصائيات
-        function updateStats() {
-            document.getElementById('user-count').textContent = '25,843';
-            document.getElementById('users').textContent = '25K+';
-            document.getElementById('servers').textContent = '2,500+';
-            document.getElementById('commands').textContent = '150+';
-            document.getElementById('uptime').textContent = '99.9%';
-        }
-        
-        // رسائل وداعية متنوعة
-        const farewellMessages = [
-            "🕯️ رحلة انتهت، وذكريات باقية...",
-            "💔 إلى لقاء، أيها الأصدقاء الأعزاء",
-            "🕊️ سامحونا إذا أخطأنا في حقكم",
-            "✨ شكراً لكل من شاركنا هذه الرحلة",
-            "🌙 غروب شمس جميلة بعد يوم حافل",
-            "📖 فصل من كتاب الحياة انتهى"
-        ];
-        
-        function showRandomFarewell() {
-            const message = farewellMessages[Math.floor(Math.random() * farewellMessages.length)];
-            
-            const notification = document.getElementById('closureNotification');
-            const notificationText = notification.querySelector('strong');
-            
-            notificationText.textContent = message;
-            
-            setTimeout(() => {
-                notification.style.animation = 'slide-up 0.5s ease';
-                notification.style.display = 'flex';
-            }, 1000);
-            
-            setTimeout(() => {
-                notification.style.animation = '';
-                notification.style.display = 'none';
-            }, 8000);
-        }
-        
-        // تأثيرات التلاشي للعناصر
-        function setupFadeEffects() {
-            const elements = document.querySelectorAll('.memory-card, .stat-card, .badge');
-            
-            elements.forEach(el => {
-                el.style.opacity = '0.8';
-                el.style.transition = 'all 0.5s ease';
-                
-                el.addEventListener('mouseenter', () => {
-                    el.style.opacity = '1';
-                });
-                
-                el.addEventListener('mouseleave', () => {
-                    el.style.opacity = '0.8';
-                });
-            });
-        }
-        
-        // تأثير الكتابة للرسالة الرئيسية
-        function typeWriterEffect() {
-            const closureText = document.querySelector('.closure-text');
-            const originalText = closureText.textContent;
-            closureText.textContent = '';
-            
-            let i = 0;
-            const typeWriter = setInterval(() => {
-                if (i < originalText.length) {
-                    closureText.textContent += originalText.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(typeWriter);
-                    
-                    // تأثير التلاشي بعد الكتابة
-                    setInterval(() => {
-                        closureText.style.opacity = closureText.style.opacity === '0.7' ? '1' : '0.7';
-                    }, 2000);
-                }
-            }, 100);
-        }
-        
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            createStars();
-            createAshRain();
-            createFadingCandles();
-            updateStats();
-            setupFadeEffects();
-            typeWriterEffect();
-            
-            // إعداد تأثيرات الظهور التدريجي
-            const elements = document.querySelectorAll('.memory-card, .stat-card, .badge, .closure-card, .farewell-message');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                
-                setTimeout(() => {
-                    el.style.opacity = '0.8';
-                    el.style.transform = 'translateY(0)';
-                }, 200 + index * 100);
-            });
-            
-            // تحديث الرسالة الوداعية كل 10 ثوان
-            setInterval(showRandomFarewell, 10000);
-            
-            // إضافة تأثير رنين الأجراس كل دقيقة
-            setInterval(() => {
-                const bellSound = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==');
-                bellSound.volume = 0.1;
-                bellSound.play().catch(e => console.log("لا يمكن تشغيل الصوت"));
-            }, 60000);
-            
-            // رسالة وداعية أولية
-            setTimeout(showRandomFarewell, 3000);
-            
-            // تأثيرات النقر
-            document.querySelectorAll('.action-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // تأثير موجات حمراء داكنة
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.cssText = `
-                        position: absolute;
-                        border-radius: 50%;
-                        background: rgba(139, 0, 0, 0.3);
-                        transform: scale(0);
-                        animation: ripple-animation 0.8s linear;
-                        width: ${size}px;
-                        height: ${size}px;
-                        top: ${y}px;
-                        left: ${x}px;
-                    `;
-                    
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 800);
-                    
-                    // عرض رسالة تأكيد
-                    alert("شكراً لاهتمامكم. لقد تم إيقاف جميع الخدمات بشكل نهائي.");
-                });
-            });
-        });
-        
-        // إضافة أنماط CSS لتأثيرات إضافية
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-            
-            .memory-card:hover .memory-icon {
-                animation: memory-icon-shake 0.5s ease;
-            }
-            
-            @keyframes memory-icon-shake {
-                0%, 100% { transform: rotate(0deg); }
-                25% { transform: rotate(-5deg); }
-                75% { transform: rotate(5deg); }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
+
+    <div class="sub" style="margin-top:50px;">
+        ⚠️ بعد فشل مشروع <strong>Bot Pro Max</strong> في الاستمرار،  
+        ننصح جميع المجتمعات بالتحول إلى بديل موثوق ومستقر:<br><br>
+
+        <a href="https://discord.com/oauth2/authorize?client_id=282859044593598464&scope=bot+applications.commands+identify+guilds&response_type=code&permissions=2080374975" 
+           target="_blank" 
+           style="color:#ff4d4d; text-decoration:underline; font-weight:600;">
+           إضافة برو بوت (ProBot)
+        </a><br><br>
+
+        المطور اعتذر عن فشل مشروعه، ونأمل أن يقدم هذا البديل تجربة أفضل للجميع.
+    </div>
+
+    <footer>
+        © 2025 — Bot Pro Max<br>
+        This service has reached its end.
+    </footer>
+
+</div>
+
+<script>
+/* توليد الرماد */
+for(let i=0;i<120;i++){
+    const ash=document.createElement("div");
+    ash.className="ash";
+    ash.style.left=Math.random()*100+"%";
+    ash.style.animationDuration=(5+Math.random()*10)+"s";
+    ash.style.opacity=Math.random();
+    ash.style.transform=`scale(${Math.random()+0.5})`;
+    document.body.appendChild(ash);
+}
+</script>
+
 </body>
 </html>

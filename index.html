@@ -1,187 +1,612 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>إشعار رسمي – Bot Pro Max</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynthMind - الذكاء الذي يتجاوز الخيال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --accent: #36D1DC;
+            --dark: #0F0B30;
+            --light: #F8F9FF;
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            --neon-glow: 0 0 20px rgba(108, 99, 255, 0.5);
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-:root{
-    --bg:#050505;
-    --bg2:#0b0b0b;
-    --text:#e0e0e0;
-    --muted:#9b9b9b;
-    --danger:#8b0000;
-}
+        body {
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
 
-*{box-sizing:border-box;margin:0;padding:0}
+        /* خلفية متحركة ذكية */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-body{
-    font-family:'Cairo',sans-serif;
-    background:
-        radial-gradient(circle at top,#111 0%,#000 60%);
-    color:var(--text);
-    min-height:100vh;
-    overflow:hidden;
-}
+        /* شريط التنقل الذكي */
+        .smart-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 11, 48, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(108, 99, 255, 0.3);
+            transition: all 0.3s ease;
+        }
 
-/* رماد متساقط */
-.ash{
-    position:fixed;
-    top:-10px;
-    width:3px;
-    height:3px;
-    background:rgba(255,255,255,0.4);
-    border-radius:50%;
-    animation:fall linear infinite;
-}
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-@keyframes fall{
-    to{
-        transform:translateY(110vh);
-        opacity:0;
-    }
-}
+        .logo i {
+            font-size: 2.5rem;
+            animation: pulse 2s infinite;
+        }
 
-/* تشويش خفيف */
-.noise{
-    position:fixed;
-    inset:0;
-    background:url("https://grainy-gradients.vercel.app/noise.svg");
-    opacity:.04;
-    pointer-events:none;
-}
+        /* قسم البطل المتحرك */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:80px 20px;
-    text-align:center;
-}
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
 
-/* الشعار */
-.logo{
-    font-size:3.5rem;
-    font-weight:700;
-    letter-spacing:2px;
-    margin-bottom:30px;
-    color:#b30000;
-    text-shadow:0 0 20px rgba(139,0,0,.6);
-}
+        .nobel-badge {
+            background: linear-gradient(45deg, #FFD700, #FFEC8B);
+            color: #000;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
 
-/* خط فاصل */
-.divider{
-    width:120px;
-    height:2px;
-    background:var(--danger);
-    margin:30px auto;
-    opacity:.6;
-}
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
 
-/* الرسالة */
-.message{
-    font-size:1.5rem;
-    line-height:2.2;
-    color:var(--text);
-    margin-top:40px;
-}
+        .typewriter {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 3rem;
+            min-height: 60px;
+        }
 
-.message strong{
-    color:#ff4d4d;
-}
+        /* أزرار تفاعلية متطورة */
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
 
-.sub{
-    margin-top:40px;
-    color:var(--muted);
-    font-size:1.1rem;
-    line-height:1.9;
-}
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* توقيع */
-.signature{
-    margin-top:60px;
-    font-size:1.2rem;
-    color:#cfcfcf;
-}
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--neon-glow);
+        }
 
-footer{
-    margin-top:100px;
-    font-size:0.95rem;
-    color:#777;
-}
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
 
-/* وميض خافت */
-@keyframes pulse{
-    0%{opacity:.7}
-    100%{opacity:1}
-}
-.logo{animation:pulse 3s infinite alternate}
-</style>
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.6);
+        }
+
+        /* عرض مميزات ثلاثي الأبعاد */
+        .features-3d {
+            padding: 8rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            position: relative;
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 2.5rem;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* قسم محاكاة البوت */
+        .bot-simulation {
+            padding: 8rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 2rem;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+        }
+
+        .message {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 20px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .user-message {
+            background: rgba(108, 99, 255, 0.15);
+            margin-left: 20%;
+            border-right: 4px solid var(--primary);
+        }
+
+        .bot-message {
+            background: rgba(54, 209, 220, 0.15);
+            margin-right: 20%;
+            border-left: 4px solid var(--accent);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid var(--secondary);
+            overflow-x: auto;
+        }
+
+        /* قسم الإحصائيات المتحركة */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 5rem 2rem;
+            background: var(--gradient);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        /* تذييل متطور */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+
+        /* تحسينات للجوائز */
+        .awards-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .trophy {
+            font-size: 5rem;
+            color: #FFD700;
+            animation: rotate 20s linear infinite;
+            margin-bottom: 2rem;
+        }
+
+        /* تأثيرات حركية */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0); }
+            to { transform: rotateY(360deg); }
+        }
+
+        /* تأثيرات التمرير */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .feature-cards { grid-template-columns: 1fr; }
+            .btn-group { flex-direction: column; align-items: center; }
+            .stats { flex-direction: column; }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- خلفية ذكية متحركة -->
+    <canvas class="particles" id="particles"></canvas>
 
-<div class="noise"></div>
+    <!-- شريط تنقالي ذكي -->
+    <nav class="smart-nav">
+        <div class="logo">
+            <i class="fas fa-brain"></i>
+            SynthMind
+        </div>
+        <div style="display: flex; gap: 2rem;">
+            <a href="#features" style="color: white; text-decoration: none; font-weight: 600;">المميزات</a>
+            <a href="#demo" style="color: white; text-decoration: none; font-weight: 600;">التجربة</a>
+            <a href="#add" style="color: white; text-decoration: none; font-weight: 600;">الإضافة</a>
+        </div>
+    </nav>
 
-<div class="container">
+    <!-- القسم الرئيسي -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="nobel-badge">
+                🏆 جائزة نوبل للتميز التقني 2024
+            </div>
+            
+            <h1>SynthMind</h1>
+            <h2>الذكاء الذي يُعيد تعريف الإبداع الرقمي</h2>
+            
+            <div class="typewriter" id="typewriter">
+                <!-- سيتم ملؤه بالجافاسكريبت -->
+            </div>
 
-    <div class="logo">BOT PRO MAX</div>
+            <div class="btn-group">
+                <a href="https://discord.com/oauth2/authorize?client_id=1453518284191170643&permissions=8&integration_type=0&scope=bot" 
+                   class="btn btn-primary">
+                   <i class="fab fa-discord"></i>
+                   أضف البوت إلى Discord
+                </a>
+                <a href="#demo" class="btn btn-secondary">
+                   <i class="fas fa-play-circle"></i>
+                   شاهد العرض الحي
+                </a>
+            </div>
 
-    <div class="divider"></div>
+            <div style="margin-top: 4rem;">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="99.9">0</div>
+                    <div>دقة الأكواد</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="message">
-        ⚠️ <strong>إشعار إيقاف نهائي</strong> ⚠️<br><br>
-        نعلن رسميًا أنه تم <strong>إيقاف جميع خدمات Bot Pro Max إلى الأبد</strong>.<br>
-        هذا القرار نهائي وغير قابل للتراجع.
-    </div>
+    <!-- قسم الجوائز -->
+    <section class="awards-section">
+        <div class="trophy">
+            <i class="fas fa-trophy"></i>
+        </div>
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;">الجوائز العالمية</h2>
+        <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto 3rem;">
+            تم تكريم SynthMind عالمياً كأكثر بوت Discord ابتكاراً في تاريخ الذكاء الاصطناعي
+        </p>
+    </section>
 
-    <div class="sub">
-        بعد سنوات من العمل، التطوير، والدعم المستمر،  
-        وصلنا إلى نقطة لم يعد فيها الاستمرار ممكنًا.<br><br>
+    <!-- المميزات ثلاثية الأبعاد -->
+    <section class="features-3d" id="features">
+        <h2 style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">قدرات خارقة</h2>
+        <div class="feature-cards">
+            <div class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>برمجة بديهية</h3>
+                <p>يكتب أكواد معقدة بأكثر من 50 لغة برمجية بدقة تصل إلى 99.9%</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>ذكاء عاطفي</h3>
+                <p>يفهم المشاعر والنبرة ويقدم ردوداً ذكية ومتعاطفة</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>سرعة خيالية</h3>
+                <p>ردود فورية دون تأخير مع معالجة متزامنة لمئات الطلبات</p>
+            </div>
+        </div>
+    </section>
 
-        نعتذر بصدق إذا كان هذا المشروع قد سبب لأي شخص ضررًا مباشرًا أو غير مباشر.<br>
-        لم يكن هدفنا يومًا إلا تقديم أفضل تجربة ممكنة.
-    </div>
+    <!-- محاكاة البوت -->
+    <section class="bot-simulation" id="demo">
+        <h2 style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">تجربة حية</h2>
+        <div class="chat-container">
+            <div class="message user-message">
+                <strong>👤 المستخدم:</strong> صمم لي موقعاً يحصل على جائزة نوبل في التصميم
+            </div>
+            <div class="message bot-message">
+                <strong>🤖 SynthMind:</strong> لقد صممت لك موقعاً يتجاوز الخيال...
+                <div class="code-block">
+                    <code>
+// كود موقع حائز على جائزة نوبل<br>
+const nobelWebsite = {<br>
+&nbsp;&nbsp;design: "ثوري",<br>
+&nbsp;&nbsp;interaction: "ساحر",<br>
+&nbsp;&nbsp;innovation: "غير مسبوق",<br>
+&nbsp;&nbsp;awards: ["نوبل", "غرامي", "أوسكار"]<br>
+};<br>
+                    </code>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="signature">
-        سامحونا.<br>
-        شكرًا لكل من وثق بنا يومًا.
-    </div>
+    <!-- إحصائيات -->
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number" data-count="100000">0</div>
+            <div>سيرفر نشط</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="50">0</div>
+            <div>لغة برمجية</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="9999">0</div>
+            <div>مستخدم راضٍ</div>
+        </div>
+    </section>
 
-    <div class="sub" style="margin-top:50px;">
-        ⚠️ بعد فشل مشروع <strong>Bot Pro Max</strong> في الاستمرار،  
-        ننصح جميع المجتمعات بالتحول إلى بديل موثوق ومستقر:<br><br>
+    <!-- قسم الإضافة النهائي -->
+    <section style="padding: 8rem 2rem; text-align: center;" id="add">
+        <h2 style="font-size: 3.5rem; margin-bottom: 2rem;">انضم إلى الثورة</h2>
+        <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 4rem;">
+            أضف SynthMind إلى سيرفر Discord الخاص بك واختبر مستقبل الذكاء الاصطناعي اليوم
+        </p>
+        <a href="https://discord.com/oauth2/authorize?client_id=1453518284191170643&permissions=8&integration_type=0&scope=bot" 
+           class="btn btn-primary" style="font-size: 1.5rem; padding: 1.5rem 4rem;">
+           <i class="fab fa-discord"></i>
+           البدء المجاني الآن
+        </a>
+    </section>
 
-        <a href="https://discord.com/oauth2/authorize?client_id=282859044593598464&scope=bot+applications.commands+identify+guilds&response_type=code&permissions=2080374975" 
-           target="_blank" 
-           style="color:#ff4d4d; text-decoration:underline; font-weight:600;">
-           إضافة برو بوت (ProBot)
-        </a><br><br>
-
-        المطور اعتذر عن فشل مشروعه، ونأمل أن يقدم هذا البديل تجربة أفضل للجميع.
-    </div>
-
-    <footer>
-        © 2025 — Bot Pro Max<br>
-        This service has reached its end.
+    <!-- التذييل -->
+    <footer class="footer">
+        <p>© 2024 SynthMind. كل الحقوق محفوظة.</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">الثورة التقنية التي تستحق جائزة نوبل</p>
+        <div style="margin-top: 2rem; font-size: 2rem;">
+            <i class="fab fa-discord"></i>
+            <i class="fab fa-github"></i>
+            <i class="fab fa-twitter"></i>
+        </div>
     </footer>
 
-</div>
+    <script>
+        // نظام الجسيمات الذكي
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-<script>
-/* توليد الرماد */
-for(let i=0;i<120;i++){
-    const ash=document.createElement("div");
-    ash.className="ash";
-    ash.style.left=Math.random()*100+"%";
-    ash.style.animationDuration=(5+Math.random()*10)+"s";
-    ash.style.opacity=Math.random();
-    ash.style.transform=`scale(${Math.random()+0.5})`;
-    document.body.appendChild(ash);
-}
-</script>
+        const particles = [];
+        const particleCount = 100;
 
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 155}, 255, 0.8)`;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        // الكتابة الآلية
+        const typewriterText = [
+            "بوت Discord الأكثر ذكاءً في الكون 🌌",
+            "يكتب أكواد أفضل من أي مبرمج بشري 💻",
+            "يفهم 50 لغة برمجية بطلاقة 🗣️",
+            "صمم ليفوز بجائزة نوبل 🏆"
+        ];
+        
+        let textIndex = 0;
+        let charIndex = 0;
+        const typewriterElement = document.getElementById('typewriter');
+        
+        function typeWriter() {
+            if (charIndex < typewriterText[textIndex].length) {
+                typewriterElement.innerHTML += typewriterText[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 50);
+            } else {
+                setTimeout(() => {
+                    typewriterElement.innerHTML = '';
+                    charIndex = 0;
+                    textIndex = (textIndex + 1) % typewriterText.length;
+                    typeWriter();
+                }, 3000);
+            }
+        }
+
+        // العدادات المتحركة
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.innerText = Math.floor(current);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // تأثير الظهور عند التمرير
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+
+        // تهيئة كل شيء
+        window.addEventListener('load', () => {
+            initParticles();
+            animateParticles();
+            typeWriter();
+            setTimeout(animateCounters, 1000);
+            revealOnScroll();
+        });
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>

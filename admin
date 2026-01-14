@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prime Bot Store • لوحة الإدارة + العرض</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #0d0d17;
+      --bg2: #12121f;
+      --accent: #5865f2;
+      --accent-dark: #4752c4;
+      --green: #43b581;
+      --red: #e74c3c;
+      --text: #e0e0ff;
+      --text2: #b0b0e0;
+      --card: #1a1a2e;
+      --danger: #c0392b;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    header {
+      background: linear-gradient(to bottom, #1f1f38, #0d0d17);
+      padding: 1rem 0;
+      border-bottom: 1px solid #2a2a4a;
+      position: sticky; top:0; z-index:100;
+    }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo {
+      font-size: 1.8rem; font-weight:bold;
+      background: linear-gradient(90deg, #5865f2, #7289da);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .btn {
+      padding: 10px 20px; border-radius:6px; font-weight:600; cursor:pointer;
+      transition: all 0.25s; border:none; color:white;
+    }
+    .btn-discord { background: var(--accent); }
+    .btn-discord:hover { background: var(--accent-dark); }
+    .btn-green { background: var(--green); }
+    .btn-green:hover { background: #3da16f; }
+    .btn-red { background: var(--red); }
+    .btn-red:hover { background: var(--danger); }
+    section { padding: 40px 0; }
+    h1, h2, h3 { margin-bottom: 1rem; }
+    .hero { text-align:center; background: linear-gradient(135deg, #0f0f1f, #1a1a2e); padding: 80px 20px; }
+    .hero h1 { font-size: 3rem; background: linear-gradient(90deg, #c3d1ff, white); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .form-section { background: var(--card); padding: 30px; border-radius:12px; border:1px solid #2a2a4a; margin: 30px 0; }
+    .form-group { margin-bottom: 20px; }
+    label { display:block; margin-bottom:8px; font-weight:600; }
+    input, textarea, select {
+      width:100%; padding:10px; border-radius:6px; border:1px solid #444466;
+      background:#0f0f1f; color:var(--text); font-size:1rem;
+    }
+    .cards {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px; padding: 40px 0;
+    }
+    .card {
+      background: var(--card); border-radius:12px; overflow:hidden;
+      border:1px solid #2a2a4a; transition: all 0.3s;
+      position:relative;
+    }
+    .card:hover { transform:translateY(-8px); box-shadow:0 15px 30px rgba(0,0,0,0.5); }
+    .card-img {
+      height:160px; background:#2a2a4a; display:flex; align-items:center; justify-content:center;
+      font-size:5rem; color:#5865f2;
+    }
+    .card-body { padding:20px; }
+    .price { font-size:1.5rem; font-weight:bold; margin:12px 0; }
+    .price.free { color:var(--green); }
+    .price.paid { color:#f1c40f; }
+    .badge {
+      position:absolute; top:10px; right:10px; padding:5px 12px; border-radius:20px;
+      font-size:0.8rem; font-weight:bold;
+    }
+    .badge-free { background:var(--green); color:black; }
+    .badge-hot  { background:#e74c3c; color:white; }
+    .badge-new  { background:#f1c40f; color:black; }
+    .actions { margin-top:15px; display:flex; gap:10px; }
+    footer {
+      background:#0a0a14; text-align:center; padding:30px 20px;
+      border-top:1px solid #222244; color:#8888aa;
+    }
+    .admin-only { border:2px dashed #f39c12; padding:15px; margin:20px 0; background:rgba(241,196,15,0.08); }
+    @media (max-width:768px) { .hero h1 { font-size:2.2rem; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo">Prime Bot Store</div>
+      <div>
+        <button id="toggleAdmin" class="btn btn-discord"><i class="fas fa-cog"></i> لوحة الأدمن</button>
+        <a href="https://discord.gg/CcqHksHxZT" target="_blank" class="btn btn-discord" style="margin-right:10px;">
+          <i class="fab fa-discord"></i> السيرفر
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="admin-only" id="adminPanel" style="display:none;">
+  <div class="container">
+    <h2><i class="fas fa-tools"></i> لوحة إدارة البوتات</h2>
+    <p style="color:#f1c40f;">(البيانات محفوظة في localStorage هذا المتصفح فقط)</p>
+
+    <div class="form-section">
+      <h3>إضافة / تعديل بوت</h3>
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>اسم البوت *</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label>الوصف</label>
+        <textarea id="description" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label>السعر (مثال: مجاناً مدى الحياة أو 15$)</label>
+        <input type="text" id="price">
+      </div>
+      <div class="form-group">
+        <label><input type="checkbox" id="isFree"> مجاني؟</label>
+      </div>
+      <div class="form-group">
+        <label>أيقونة Font Awesome (مثال: shield-alt, ticket-alt, coins)</label>
+        <input type="text" id="icon" value="robot">
+      </div>
+      <div class="form-group">
+        <label>نوع البادج</label>
+        <select id="badge">
+          <option value="">لا يوجد</option>
+          <option value="free">مجاني</option>
+          <option value="hot">الأكثر طلباً</option>
+          <option value="new">جديد</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>رابط الدعوة / الشراء</label>
+        <input type="url" id="inviteLink" value="https://discord.gg/CcqHksHxZT">
+      </div>
+      <button id="saveBot" class="btn btn-green" style="font-size:1.1rem; padding:12px 40px;">
+        <i class="fas fa-save"></i> حفظ البوت
+      </button>
+      <button id="clearForm" class="btn btn-red" style="margin-right:10px;">إلغاء</button>
+    </div>
+
+    <h3>البوتات الحالية</h3>
+    <div id="adminCards" class="cards"></div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <h1>أفضل بوتات ديسكورد الاحترافية</h1>
+    <p>بوتات قوية • تفعيل فوري • دعم مستمر<br>مجانية ومدفوعة – كل ما تحتاجه سيرفرك</p>
+    <div style="margin:30px 0;">
+      <a href="#bots" class="btn btn-green" style="font-size:1.2rem; padding:14px 40px; margin:0 10px;">استعرض البوتات</a>
+      <a href="https://discord.gg/CcqHksHxZT" target="_blank" class="btn btn-discord" style="font-size:1.2rem; padding:14px 40px;">الدعم والشراء</a>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="bots">
+  <h2 style="text-align:center; margin:40px 0 30px; font-size:2.2rem;">البوتات المتوفرة</h2>
+  <div class="cards" id="publicCards"></div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>جميع الحقوق محفوظة © 2026 Prime Bot Store</p>
+    <p style="margin-top:10px;">
+      <a href="https://discord.gg/CcqHksHxZT" target="_blank">سيرفر الديسكورد</a> • سياسة الخصوصية
+    </p>
+  </div>
+</footer>
+
+<script>
+  const STORAGE_KEY = 'primeBotsData';
+  let bots = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
+    { id: Date.now()+1, name: "Prime Protector", description: "حماية متقدمة من السبام • مضاد رايد", price: "مجاناً مدى الحياة", isFree: true, icon: "shield-alt", badge: "free", inviteLink: "https://discord.gg/CcqHksHxZT" },
+    { id: Date.now()+2, name: "Prime Tickets", description: "نظام تذاكر احترافي • فئات متعددة", price: "15$ • مدى الحياة", isFree: false, icon: "ticket-alt", badge: "hot", inviteLink: "https://discord.gg/CcqHksHxZT" },
+    { id: Date.now()+3, name: "Prime Economy", description: "نظام اقتصاد كامل • متجر • عملات", price: "25$ • مدى الحياة", isFree: false, icon: "coins", badge: "new", inviteLink: "https://discord.gg/CcqHksHxZT" }
+  ];
+
+  function saveBots() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(bots));
+    renderPublicCards();
+    renderAdminCards();
+  }
+
+  function renderPublicCards() {
+    const container = document.getElementById('publicCards');
+    container.innerHTML = '';
+    bots.forEach(bot => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        ${bot.badge ? `<div class="badge badge-${bot.badge}">${bot.badge==='free'?'مجاني':bot.badge==='hot'?'الأكثر طلباً':'جديد'}</div>` : ''}
+        <div class="card-img"><i class="fas fa-${bot.icon || 'robot'}"></i></div>
+        <div class="card-body">
+          <h3>${bot.name}</h3>
+          <p>${bot.description || ''}</p>
+          <div class="price ${bot.isFree ? 'free' : 'paid'}">${bot.price || 'غير محدد'}</div>
+          <a href="${bot.inviteLink || '#'}" target="_blank" class="btn ${bot.isFree ? 'btn-discord' : 'btn-green'}" style="width:100%; margin-top:12px; display:block; text-align:center;">
+            ${bot.isFree ? 'دعوة البوت' : 'شراء الآن'}
+          </a>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function renderAdminCards() {
+    const container = document.getElementById('adminCards');
+    container.innerHTML = '';
+    bots.forEach((bot, index) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-img"><i class="fas fa-${bot.icon || 'robot'}"></i></div>
+        <div class="card-body">
+          <h3>${bot.name}</h3>
+          <p>${bot.price} ${bot.isFree ? '(مجاني)' : ''}</p>
+          <div class="actions">
+            <button class="btn btn-discord edit-btn" data-index="${index}">تعديل</button>
+            <button class="btn btn-red delete-btn" data-index="${index}">حذف</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // أحداث التعديل والحذف
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const idx = e.target.dataset.index;
+        const bot = bots[idx];
+        document.getElementById('editId').value = bot.id;
+        document.getElementById('name').value = bot.name;
+        document.getElementById('description').value = bot.description || '';
+        document.getElementById('price').value = bot.price || '';
+        document.getElementById('isFree').checked = bot.isFree;
+        document.getElementById('icon').value = bot.icon || 'robot';
+        document.getElementById('badge').value = bot.badge || '';
+        document.getElementById('inviteLink').value = bot.inviteLink || '';
+        window.scrollTo(0, 0);
+      });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        if (confirm('هل أنت متأكد من حذف هذا البوت؟')) {
+          const idx = e.target.dataset.index;
+          bots.splice(idx, 1);
+          saveBots();
+        }
+      });
+    });
+  }
+
+  // حفظ بوت جديد أو تعديل موجود
+  document.getElementById('saveBot').addEventListener('click', () => {
+    const name = document.getElementById('name').value.trim();
+    if (!name) return alert('اسم البوت مطلوب!');
+
+    const botData = {
+      id: document.getElementById('editId').value ? Number(document.getElementById('editId').value) : Date.now(),
+      name,
+      description: document.getElementById('description').value.trim(),
+      price: document.getElementById('price').value.trim(),
+      isFree: document.getElementById('isFree').checked,
+      icon: document.getElementById('icon').value.trim() || 'robot',
+      badge: document.getElementById('badge').value,
+      inviteLink: document.getElementById('inviteLink').value.trim()
+    };
+
+    const editId = document.getElementById('editId').value;
+    if (editId) {
+      const idx = bots.findIndex(b => b.id === Number(editId));
+      if (idx !== -1) bots[idx] = botData;
+    } else {
+      bots.push(botData);
+    }
+
+    saveBots();
+    document.getElementById('clearForm').click();
+    alert('تم الحفظ بنجاح!');
+  });
+
+  document.getElementById('clearForm').addEventListener('click', () => {
+    document.getElementById('editId').value = '';
+    document.getElementById('name').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('price').value = '';
+    document.getElementById('isFree').checked = false;
+    document.getElementById('icon').value = 'robot';
+    document.getElementById('badge').value = '';
+    document.getElementById('inviteLink').value = 'https://discord.gg/CcqHksHxZT';
+  });
+
+  document.getElementById('toggleAdmin').addEventListener('click', () => {
+    const panel = document.getElementById('adminPanel');
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // تحميل أولي
+  renderPublicCards();
+  renderAdminCards();
+</script>
+
+</body>
+</html>

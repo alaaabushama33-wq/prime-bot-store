@@ -3,28 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>abushama1 - بوتات ذكية وسكربتات احترافية</title>
-  
-  <meta name="description" content="أقوى بوتات Discord ذكاء اصطناعي وبوت أذكار وبوت البلاك ليست المتقدم - abushama1"/>
-  
-  <!-- Google Fonts - خطوط عربية نظيفة -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome للأيقونات -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <title>Prime Bot Store • بوتات ديسكورد احترافية</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root {
-      --primary: #6366f1;       /* indigo */
-      --primary-dark: #4f46e5;
-      --dark: #0f172a;
-      --gray: #1e293b;
-      --light: #f8fafc;
-      --danger: #ef4444;
-      --success: #10b981;
-      --warning: #f59e0b;
+      --bg: #0d0d17;
+      --bg2: #12121f;
+      --accent: #5865f2;
+      --accent-dark: #4752c4;
+      --green: #43b581;
+      --text: #e0e0ff;
+      --text2: #b0b0e0;
+      --card: #1a1a2e;
     }
 
     * {
@@ -34,12 +24,14 @@
     }
 
     body {
-      font-family: 'Cairo', 'Tajawal', system-ui, sans-serif;
-      background-color: var(--dark);
-      color: var(--light);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
-      direction: rtl;
     }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #7289da; }
 
     .container {
       max-width: 1200px;
@@ -48,657 +40,232 @@
     }
 
     header {
-      background: linear-gradient(to bottom, rgba(15,23,42,0.95), rgba(15,23,42,0.85));
-      position: fixed;
-      width: 100%;
+      background: linear-gradient(to bottom, #1f1f38, #0d0d17);
+      padding: 1.2rem 0;
+      border-bottom: 1px solid #2a2a4a;
+      position: sticky;
       top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(99,102,241,0.2);
+      z-index: 100;
     }
 
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 0;
     }
 
     .logo {
       font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #5865f2, #7289da);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .logo i {
-      font-size: 2rem;
+    .btn {
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
     }
+
+    .btn-discord {
+      background: var(--accent);
+      color: white;
+      border: none;
+    }
+    .btn-discord:hover { background: var(--accent-dark); }
+
+    .btn-green {
+      background: var(--green);
+      color: white;
+      border: none;
+    }
+    .btn-green:hover { background: #3da16f; }
 
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      padding-top: 100px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%);
-      top: 10%;
-      right: -100px;
-      z-index: 0;
-    }
-
-    .hero-content {
       text-align: center;
-      position: relative;
-      z-index: 1;
+      padding: 100px 20px 80px;
+      background: linear-gradient(135deg, #0f0f1f 0%, #1a1a2e 100%);
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: 3.4rem;
       margin-bottom: 1rem;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      background: linear-gradient(90deg, #c3d1ff, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero p {
       font-size: 1.3rem;
+      color: var(--text2);
+      margin-bottom: 2.5rem;
       max-width: 700px;
-      margin: 0 auto 2.5rem;
-      color: #cbd5e1;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 0.9rem 2rem;
-      background: var(--primary);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      margin: 0.6rem;
-      transition: all 0.3s ease;
-      font-size: 1.1rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(99,102,241,0.35);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-
-    .btn-danger {
-      background: var(--danger);
-    }
-
-    .btn-success {
-      background: var(--success);
-    }
-
-    section {
-      padding: 100px 0;
-    }
-
-    h2 {
-      text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 3rem;
-      color: var(--primary);
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      right: 50%;
-      transform: translateX(50%);
-      width: 100px;
-      height: 4px;
-      background: var(--primary);
-      border-radius: 2px;
-    }
-
-    .bots-grid {
+    .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 60px 0;
     }
 
-    .bot-card {
-      background: var(--gray);
-      border-radius: 16px;
+    .card {
+      background: var(--card);
+      border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(99,102,241,0.15);
-      transition: all 0.4s ease;
+      border: 1px solid #2a2a4a;
+      transition: transform 0.3s, box-shadow 0.3s;
       position: relative;
     }
 
-    .bot-card:hover {
-      transform: translateY(-12px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
 
-    .bot-card.best {
-      border: 2px solid var(--warning);
-      position: relative;
-    }
-
-    .best-badge {
-      position: absolute;
-      top: -12px;
-      left: 20px;
-      background: var(--warning);
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.9rem;
-      z-index: 10;
-    }
-
-    .bot-card h3 {
-      background: rgba(99,102,241,0.1);
-      padding: 1.4rem;
-      font-size: 1.6rem;
-      text-align: center;
-      border-bottom: 1px solid rgba(99,102,241,0.15);
+    .card-img {
+      height: 180px;
+      background: #2a2a4a;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      font-size: 4rem;
+      color: #5865f2;
     }
 
-    .bot-card .content {
-      padding: 1.8rem;
+    .card-body {
+      padding: 24px;
     }
 
-    .features {
-      list-style: none;
-      margin: 1.2rem 0;
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 1.5rem;
     }
 
-    .features li {
-      margin: 0.9rem 0;
-      padding-right: 1.8rem;
-      position: relative;
+    .price {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin: 16px 0;
     }
 
-    .features li::before {
-      content: "✦";
-      color: var(--primary);
+    .price.free { color: #43b581; }
+    .price.paid { color: #f1c40f; }
+
+    .badge {
       position: absolute;
-      right: 0;
-    }
-
-    .status-container {
-      background: rgba(15, 23, 42, 0.7);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin: 2rem auto;
-      max-width: 900px;
-      border: 1px solid rgba(99,102,241,0.2);
-    }
-
-    .status-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(99,102,241,0.2);
-    }
-
-    .status-title {
-      font-size: 1.5rem;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .status-badge {
-      background: var(--success);
-      color: white;
-      padding: 5px 15px;
+      top: 12px;
+      right: 12px;
+      padding: 6px 14px;
       border-radius: 20px;
+      font-size: 0.8rem;
       font-weight: bold;
-      font-size: 0.9rem;
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-box {
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 10px;
-      padding: 1.5rem;
-      text-align: center;
-      border: 1px solid rgba(99,102,241,0.1);
-      transition: all 0.3s ease;
-    }
-
-    .stat-box:hover {
-      border-color: var(--primary);
-      transform: translateY(-5px);
-    }
-
-    .stat-value {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-label {
-      color: #cbd5e1;
-      font-size: 1.1rem;
-    }
-
-    .bot-features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .feature-item {
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 10px;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-right: 3px solid var(--primary);
-    }
-
-    .feature-item i {
-      color: var(--primary);
-      font-size: 1.2rem;
-    }
-
-    .warning {
-      background: rgba(239,68,68,0.15);
-      border: 2px solid var(--danger);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      margin: 3rem auto;
-      max-width: 900px;
-      font-size: 1.3rem;
-      line-height: 1.8;
-    }
-
-    .warning strong {
-      color: var(--danger);
-      font-size: 1.5rem;
-    }
-
-    .cta-box {
-      background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(16,185,129,0.1) 100%);
-      border-radius: 16px;
-      padding: 3rem;
-      text-align: center;
-      margin: 4rem auto;
-      max-width: 1000px;
-      border: 1px solid rgba(99,102,241,0.2);
-    }
-
-    .cta-box h3 {
-      font-size: 2.2rem;
-      margin-bottom: 1.5rem;
-      color: white;
-    }
+    .badge-free { background: #43b581; color: black; }
+    .badge-hot  { background: #e74c3c; color: white; }
+    .badge-new  { background: #f1c40f; color: black; }
 
     footer {
-      background: #020617;
+      background: #0a0a14;
       text-align: center;
-      padding: 3rem 0;
-      border-top: 1px solid rgba(99,102,241,0.1);
+      padding: 40px 20px;
+      border-top: 1px solid #222244;
+      color: #8888aa;
       font-size: 0.95rem;
-      color: #94a3b8;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin: 1.5rem 0;
-    }
-
-    .footer-links a {
-      color: #cbd5e1;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-links a:hover {
-      color: var(--primary);
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 3rem; }
-      .hero p { font-size: 1.1rem; }
-      section { padding: 70px 0; }
-      h2 { font-size: 2.3rem; }
-      .bots-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .bot-features-grid { grid-template-columns: 1fr; }
-      .status-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .hero h1 { font-size: 2.6rem; }
+      .hero p  { font-size: 1.1rem; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">
-          <i class="fas fa-robot"></i>
-          abushama1
-        </div>
-      </nav>
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo">Prime Bot Store</div>
+      <a href="https://discord.gg/CcqHksHxZT" target="_blank" class="btn btn-discord">
+        <i class="fab fa-discord"></i> انضم للسيرفر
+      </a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>أفضل بوتات ديسكورد الاحترافية</h1>
+    <p>بوتات قوية • تفعيل فوري • دعم مستمر • أسعار مناسبة<br>مجانية ومدفوعة – كل ما تحتاجه سيرفرك في مكان واحد</p>
+    
+    <div style="margin: 30px 0;">
+      <a href="#bots" class="btn btn-green" style="font-size:1.2rem; padding:14px 40px; margin:0 10px;">استعرض البوتات</a>
+      <a href="https://discord.gg/CcqHksHxZT" target="_blank" class="btn btn-discord" style="font-size:1.2rem; padding:14px 40px;">الدعم والشراء عبر ديسكورد</a>
     </div>
-  </header>
+  </div>
+</section>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1>abushama1</h1>
-        <p>
-          أقوى بوتات الذكاء الاصطناعي، بوت الأذكار، وبوت البلاك ليست المتقدم على ديسكورد<br>
-          سكربتات جاهزة + تصميم مخصص حسب طلبك • جودة عالية • دعم مستمر
-        </p>
-        <div>
-          <a href="#bots" class="btn">استكشف البوتات</a>
-          <a href="https://web.whatsapp.com/" target="_blank" class="btn btn-outline">اطلب سكربت مخصص</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="container" id="bots">
+  <h2 style="text-align:center; margin:60px 0 40px; font-size:2.4rem;">البوتات المتوفرة</h2>
 
-  <section id="bots">
-    <div class="container">
-      <h2><i class="fas fa-robot"></i> بوتاتنا الاحترافية</h2>
-      
-      <div class="bots-grid">
-        <div class="bot-card">
-          <h3><i class="fas fa-brain"></i> أذكى بوت ذكاء اصطناعي عربي</h3>
-          <div class="content">
-            <ul class="features">
-              <li>فهم ممتاز للفصحى والعامية</li>
-              <li>ردود سريعة وذكية جدًا</li>
-              <li>دردشة • ترجمة • كتابة منشورات</li>
-              <li>أفكار إبداعية • حل مسائل • نكت وترفيه</li>
-              <li>مساعد دراسي وعملي قوي</li>
-            </ul>
-            <a href="https://discord.com/oauth2/authorize?client_id=1453518284191170643&permissions=8&integration_type=0&scope=bot" 
-               target="_blank" 
-               class="btn" 
-               style="width:100%; text-align:center; margin-top:1.5rem;">
-               <i class="fas fa-plus-circle"></i> أضف البوت الآن
-            </a>
-          </div>
-        </div>
+  <div class="cards">
 
-        <div class="bot-card best">
-          <div class="best-badge"><i class="fas fa-crown"></i> الأكثر طلباً</div>
-          <h3><i class="fas fa-shield-alt"></i> بوت البلاك ليست المتقدم</h3>
-          <div class="content">
-            <ul class="features">
-              <li>حماية تلقائية من النصابين والمخربين</li>
-              <li>طرد فوري عند دخول أي نصاب</li>
-              <li>قائمة سوداء مركزية لجميع السيرفرات</li>
-              <li>لوحة تحكم تفاعلية وسهلة</li>
-              <li>سجلات مفصلة لكل العمليات</li>
-              <li>إعلانات تلقائية في كل السيرفرات</li>
-              <li>فحص تلقائي لجميع الأعضاء</li>
-            </ul>
-            
-            <div class="status-container">
-              <div class="status-header">
-                <div class="status-title">
-                  <i class="fas fa-signal"></i> حالة البوت الآن
-                </div>
-                <div class="status-badge">
-                  <i class="fas fa-check-circle"></i> نشط ومستقر
-                </div>
-              </div>
-              
-              <div class="stats-grid">
-                <div class="stat-box">
-                  <div class="stat-value" id="protected-servers">25+</div>
-                  <div class="stat-label">سيرفر محمي</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-value" id="blocked-users">150+</div>
-                  <div class="stat-label">نصاب محظور</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-value" id="uptime">99.8%</div>
-                  <div class="stat-label">معدل التشغيل</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-value" id="response-time">0.3s</div>
-                  <div class="stat-label">سرعة الاستجابة</div>
-                </div>
-              </div>
-              
-              <div class="bot-features-grid">
-                <div class="feature-item">
-                  <i class="fas fa-bolt"></i>
-                  <span>طرد تلقائي فوري</span>
-                </div>
-                <div class="feature-item">
-                  <i class="fas fa-bell"></i>
-                  <span>إشعارات في كل السيرفرات</span>
-                </div>
-                <div class="feature-item">
-                  <i class="fas fa-chart-line"></i>
-                  <span>إحصائيات مفصلة</span>
-                </div>
-                <div class="feature-item">
-                  <i class="fas fa-sync-alt"></i>
-                  <span>تحديثات مستمرة</span>
-                </div>
-              </div>
-            </div>
-            
-            <a href="https://discord.com/oauth2/authorize?client_id=1438908896113856607&permissions=8&integration_type=0&scope=bot" 
-               target="_blank" 
-               class="btn btn-success" 
-               style="width:100%; text-align:center; margin-top:1.5rem; font-size:1.2rem;">
-               <i class="fas fa-shield-alt"></i> أضف بوت الحماية الآن
-            </a>
-            
-            <div style="text-align:center; margin-top:1rem; color:#cbd5e1; font-size:0.9rem;">
-              <i class="fas fa-info-circle"></i> البوت مجاني تماماً ومدعوم 24/7
-            </div>
-          </div>
-        </div>
-
-        <div class="bot-card">
-          <h3><i class="fas fa-pray"></i> بوت الأذكار - نور وسكينة</h3>
-          <div class="content">
-            <ul class="features">
-              <li>أذكار الصباح والمساء تلقائيًا</li>
-              <li>أذكار بعد الصلاة</li>
-              <li>آيات قرآنية عشوائية</li>
-              <li>تذكير يومي مريح</li>
-              <li>أمر سهل: <code>!قائمة</code> → ينشئ روم الأذكار تلقائي</li>
-            </ul>
-            <a href="https://discord.com/oauth2/authorize?client_id=1452048280409346299&permissions=8&integration_type=0&scope=bot" 
-               target="_blank" 
-               class="btn" 
-               style="width:100%; text-align:center; margin-top:1.5rem;">
-               <i class="fas fa-plus-circle"></i> أضف بوت الأذكار
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="cta-box">
-        <h3><i class="fas fa-star"></i> لماذا تختار بوت البلاك ليست من abushama1؟</h3>
-        <p style="font-size:1.3rem; margin-bottom:2rem; max-width:800px; margin-left:auto; margin-right:auto;">
-          لأن أمان مجتمعك أهم من أي شيء! بوتنا يوفر حماية شاملة تجعل سيرفرك آمناً من النصابين والمخربين تلقائياً ودون أي مجهود منك.
-        </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="https://discord.com/oauth2/authorize?client_id=1438908896113856607&permissions=8&integration_type=0&scope=bot" 
-             target="_blank" 
-             class="btn btn-success" 
-             style="font-size:1.3rem; padding:1rem 2.5rem;">
-             <i class="fas fa-shield-alt"></i> جرب البوت مجاناً
-          </a>
-          <a href="https://web.whatsapp.com/" 
-             target="_blank" 
-             class="btn btn-outline" 
-             style="font-size:1.3rem; padding:1rem 2.5rem;">
-             <i class="fas fa-question-circle"></i> استفسر الآن
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <h2><i class="fas fa-cogs"></i> خدماتنا</h2>
-      <div style="max-width:800px; margin:0 auto; text-align:center; font-size:1.3rem;">
-        <p><i class="fas fa-code" style="color:var(--primary);"></i> سكربتات جاهزة للبيع (بوتات • أدوات • مواقع)</p>
-        <p><i class="fas fa-laptop-code" style="color:var(--primary);"></i> تصميم وبرمجة سكربتات مخصصة 100% حسب فكرتك</p>
-        <p><i class="fas fa-tools" style="color:var(--primary);"></i> تعديل وتطوير بوتات موجودة</p>
-        <p><i class="fas fa-briefcase" style="color:var(--primary);"></i> خدمات احترافية على Fiverr</p>
-        <br>
-        <a href="https://web.whatsapp.com/" target="_blank" class="btn" style="font-size:1.4rem; padding:1rem 2.5rem;">
-          <i class="fab fa-whatsapp"></i> اطلب خدمتك الآن عبر واتساب الرسمي
+    <div class="card">
+      <div class="badge badge-free">مجاني</div>
+      <div class="card-img"><i class="fas fa-shield-alt"></i></div>
+      <div class="card-body">
+        <h3>Prime Protector</h3>
+        <p>حماية متقدمة من السبام • مضاد رايد • أوتو مود • لوجات شاملة</p>
+        <div class="price free">مجاناً مدى الحياة</div>
+        <a href="https://discord.gg/CcqHksHxZT" target="_blank" class="btn btn-discord" style="width:100%; text-align:center; display:block; margin-top:16px;">
+          دعوة البوت
         </a>
       </div>
     </div>
-  </section>
 
-  <section>
-    <div class="container">
-      <div class="warning">
-        <strong><i class="fas fa-exclamation-triangle"></i> تحذير هام جدًا <i class="fas fa-exclamation-triangle"></i></strong><br><br>
-        التواصل الرسمي الوحيد مع <strong>abushama1</strong> يكون فقط من خلال<br>
-        <strong style="font-size:1.4rem;">واتساب الرسمي عبر المتصفح:</strong><br>
-        <a href="https://web.whatsapp.com/" target="_blank" style="color:#ef4444; font-weight:bold; text-decoration:underline;">
-          https://web.whatsapp.com/
-        </a><br><br>
-        لا يوجد أي رقم أو حساب آخر رسمي<br>
-        احذر النصابين الذين يستغلون الاسم!
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p><i class="fas fa-copyright"></i> 2026 abushama1 - جميع الحقوق محفوظة</p>
-      
-      <div class="footer-links">
-        <a href="#bots"><i class="fas fa-robot"></i> البوتات</a>
-        <a href="https://discord.com/oauth2/authorize?client_id=1438908896113856607&permissions=8&integration_type=0&scope=bot" target="_blank">
-          <i class="fas fa-shield-alt"></i> بوت البلاك ليست
+    <div class="card">
+      <div class="badge badge-hot">الأكثر طلباً</div>
+      <div class="card-img"><i class="fas fa-ticket-alt"></i></div>
+      <div class="card-body">
+        <h3>Prime Tickets</h3>
+        <p>نظام تذاكر احترافي • فئات متعددة • ادعوام + ادعوام + تقارير • لوحة تحكم جميلة</p>
+        <div class="price paid">15$ • مدى الحياة</div>
+        <a href="https://discord.gg/CcqHksHxZT" target="_blank" class="btn btn-green" style="width:100%; text-align:center; display:block; margin-top:16px;">
+          شراء الآن
         </a>
-        <a href="https://web.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i> تواصل معنا</a>
       </div>
-      
-      <p style="margin-top:0.5rem; font-size:0.9rem;">
-        للحماية والأمان: استخدم بوت البلاك ليست لحماية سيرفراتك من النصابين
-      </p>
     </div>
-  </footer>
 
-  <script>
-    // مؤثرات بسيطة للإحصائيات
-    document.addEventListener('DOMContentLoaded', function() {
-      // زيادة الأرقام تدريجياً
-      const counters = document.querySelectorAll('.stat-value');
-      
-      counters.forEach(counter => {
-        const target = counter.innerText;
-        let current = 0;
-        
-        if (target.includes('+')) {
-          const num = parseInt(target.replace('+', ''));
-          const increment = Math.ceil(num / 50);
-          
-          const updateCounter = () => {
-            current += increment;
-            if (current < num) {
-              counter.innerText = current + '+';
-              setTimeout(updateCounter, 30);
-            } else {
-              counter.innerText = target;
-            }
-          };
-          
-          updateCounter();
-        } else if (target.includes('%')) {
-          counter.innerText = '0%';
-          setTimeout(() => {
-            counter.innerText = target;
-          }, 500);
-        } else if (target.includes('s')) {
-          counter.innerText = '0.0s';
-          setTimeout(() => {
-            counter.innerText = target;
-          }, 800);
-        }
-      });
-      
-      // إضافة تأثير للبطاقات عند التمرير
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, observerOptions);
-      
-      // تطبيق التأثير على البطاقات
-      document.querySelectorAll('.bot-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(card);
-      });
-    });
-  </script>
+    <div class="card">
+      <div class="badge badge-new">جديد</div>
+      <div class="card-img"><i class="fas fa-coins"></i></div>
+      <div class="card-body">
+        <h3>Prime Economy</h3>
+        <p>نظام اقتصاد كامل • متجر • عملات • بنك • قفازات يومية • سباقات</p>
+        <div class="price paid">25$ • مدى الحياة</div>
+        <a href="https://discord.gg/CcqHksHxZT" target="_blank" class="btn btn-green" style="width:100%; text-align:center; display:block; margin-top:16px;">
+          شراء الآن
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>جميع الحقوق محفوظة © 2026 Prime Bot Store</p>
+    <p style="margin-top:12px;">
+      <a href="https://discord.gg/CcqHksHxZT" target="_blank">سيرفر الديسكورد</a>
+      • سياسة الخصوصية • شروط الاستخدام
+    </p>
+  </div>
+</footer>
 
 </body>
 </html>

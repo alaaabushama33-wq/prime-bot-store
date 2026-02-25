@@ -5,13 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>متجر كل شيء | برمجة وتطوير</title>
 
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
 
     :root {
       --primary: #6366f1;
       --secondary: #06b6d4;
-      --accent: #10 b981;
+      --accent: #10b981;
       --whatsapp: #25d366;
       --bg-dark: #030712;
       --card-gradient: linear-gradient(145deg, rgba(31, 41, 55, 0.7), rgba(17, 24, 39, 0.9));
@@ -117,7 +121,7 @@
       margin-top: auto;
     }
 
-    .btn-blue { background: var(--primary); color: white; margin-bottom: 10px; }
+    .btn-blue { background: var(--primary); color: white; margin-bottom: 10px; border:none; cursor:pointer; }
     .btn-whatsapp { background: var(--whatsapp); color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
     /* --- زر واتساب العائم --- */
@@ -142,12 +146,12 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.95);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
     }
 
     @media (max-width: 1024px) {
@@ -166,10 +170,10 @@
 <body>
 
 <div id="welcomeModal" class="modal-overlay">
-  <div style="background:#111827; padding:40px; border-radius:30px; text-align:center; max-width:400px; border:1px solid var(--primary);">
-    <h2 style="margin-bottom:15px;">متجر كل شيء 🚀</h2>
-    <p style="color:#9ca3af; margin-bottom:25px;">تم إضافة خاصية الدفع عبر الواتساب وخدمات برمجية جديدة!</p>
-    <button onclick="closeModal()" class="btn btn-blue" style="border:none; cursor:pointer;">ابدأ التصفح</button>
+  <div style="background:#111827; padding:40px; border-radius:30px; text-align:center; max-width:400px; border:1px solid var(--primary); box-shadow: 0 0 50px rgba(99, 102, 241, 0.2);">
+    <h2 style="margin-bottom:15px; color:#fff;">متجر كل شيء 🚀</h2>
+    <p id="modalStatus" style="color:#9ca3af; margin-bottom:25px;">يرجى تسجيل الدخول بحساب جوجل للمتابعة وتصفح الخدمات الجديدة.</p>
+    <button id="loginBtn" onclick="loginWithGoogle()" class="btn btn-blue">تسجيل الدخول بحساب جوجل</button>
   </div>
 </div>
 
@@ -238,11 +242,55 @@
 </footer>
 
 <script>
-  function closeModal() {
-    document.getElementById('welcomeModal').style.display = 'none';
+  // الإعدادات الخاصة بك
+  const firebaseConfig = {
+    apiKey: "AIzaSyAVQnJ5yecFMLRkrKqZKsLIxZKp49zK5jY",
+    authDomain: "studio-2251445927-ce3ff.firebaseapp.com",
+    databaseURL: "https://studio-2251445927-ce3ff-default-rtdb.firebaseio.com",
+    projectId: "studio-2251445927-ce3ff",
+    storageBucket: "studio-2251445927-ce3ff.firebasestorage.app",
+    messagingSenderId: "26149017300",
+    appId: "1:26149017300:web:4f30ddd91817f6393ecd41"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  // دالة تسجيل الدخول بجوجل
+  function loginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const btn = document.getElementById('loginBtn');
+    const statusText = document.getElementById('modalStatus');
+    
+    btn.innerText = "جاري التحميل...";
+    btn.disabled = true;
+
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        // حفظ بيانات المستخدم في الداتا
+        db.ref('users/' + user.uid).set({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          lastSeen: Date.now()
+        });
+        
+        // إغلاق المودال بعد النجاح
+        document.getElementById('welcomeModal').style.display = 'none';
+        console.log("Welcome:", user.displayName);
+      })
+      .catch((error) => {
+        console.error(error);
+        statusText.innerText = "فشل تسجيل الدخول، حاول مرة أخرى.";
+        btn.innerText = "تسجيل الدخول بحساب جوجل";
+        btn.disabled = false;
+      });
   }
 
-  // منع الاختصارات
+  // منع الاختصارات (حمايتك السابقة)
   document.addEventListener('contextmenu', e => e.preventDefault());
   document.onkeydown = function(e) {
     if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))) return false;
@@ -250,3 +298,4 @@
 </script>
 
 </body>
+</html>

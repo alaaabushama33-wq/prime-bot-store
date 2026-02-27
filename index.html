@@ -1,896 +1,259 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>متجر كل شيء | حلول تقنية متكاملة</title>
-  
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-  
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      transition: all 0.3s ease;
-    }
-
-    :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #06b6d4;
-      --accent: #10b981;
-      --danger: #ef4444;
-      --whatsapp: #25d366;
-      --discord: #5865F2;
-      --dark-900: #0a0a0f;
-      --dark-800: #111118;
-      --dark-700: #1a1a24;
-      --dark-600: #2a2a35;
-      --text-primary: #f3f4f6;
-      --text-secondary: #9ca3af;
-      --border-glow: rgba(99, 102, 241, 0.3);
-    }
-
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: var(--dark-900);
-      color: var(--text-primary);
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* خلفية متحركة */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
-      z-index: -1;
-    }
-
-    /* شريط التنقل */
-    .navbar {
-      background: rgba(17, 17, 24, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(99, 102, 241, 0.3);
-      padding: 1rem 2rem;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .nav-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo i {
-      font-size: 2rem;
-      color: var(--primary);
-      animation: pulse 2s infinite;
-    }
-
-    .logo span {
-      font-size: 1.5rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, #fff, var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .user-menu {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--dark-700);
-      padding: 8px 16px;
-      border-radius: 50px;
-      border: 1px solid var(--border-glow);
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid var(--primary);
-    }
-
-    .user-name {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .auth-buttons {
-      display: flex;
-      gap: 12px;
-    }
-
-    /* الأزرار */
-    .btn {
-      padding: 10px 24px;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      font-family: 'Cairo', sans-serif;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--text-primary);
-    }
-
-    .btn-outline:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-logout {
-      background: transparent;
-      border: 1px solid var(--danger);
-      color: var(--danger);
-      padding: 8px 16px;
-    }
-
-    .btn-logout:hover {
-      background: var(--danger);
-      color: white;
-    }
-
-    /* المحتوى الرئيسي */
-    .main-wrapper {
-      max-width: 1400px;
-      margin: 100px auto 50px;
-      padding: 0 20px;
-    }
-
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      margin-bottom: 60px;
-      padding: 60px 20px;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
-      border-radius: 30px;
-      border: 1px solid var(--border-glow);
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 900;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      margin-top: 40px;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    /* شبكة المنتجات */
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title i {
-      color: var(--primary);
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      margin-bottom: 50px;
-    }
-
-    .product-card {
-      background: rgba(26, 26, 36, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      border-radius: 24px;
-      padding: 25px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      transform: scaleX(0);
-      transition: transform 0.3s;
-    }
-
-    .product-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .product-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
-    }
-
-    .product-icon {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .product-icon i {
-      font-size: 30px;
-      color: var(--primary);
-    }
-
-    .product-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-
-    .product-desc {
-      color: var(--text-secondary);
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    .product-features {
-      list-style: none;
-      margin-bottom: 20px;
-    }
-
-    .product-features li {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .product-features li i {
-      color: var(--accent);
-      font-size: 0.8rem;
-    }
-
-    .product-price {
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--primary);
-      margin-bottom: 15px;
-    }
-
-    .btn-whatsapp {
-      background: var(--whatsapp);
-      color: white;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .btn-whatsapp:hover {
-      background: #20ba5c;
-      transform: translateY(-2px);
-    }
-
-    /* قسم البوت */
-    .bot-section {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(6, 182, 212, 0.15));
-      border-radius: 30px;
-      padding: 40px;
-      margin: 50px 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-      border: 1px solid var(--border-glow);
-    }
-
-    .bot-info h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-
-    .bot-stats {
-      display: flex;
-      gap: 30px;
-      margin: 30px 0;
-    }
-
-    .bot-stat {
-      text-align: center;
-    }
-
-    .bot-stat .number {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--primary);
-    }
-
-    .bot-stat .label {
-      color: var(--text-secondary);
-    }
-
-    .btn-discord {
-      background: var(--discord);
-      color: white;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-    }
-
-    /* مودال تسجيل الدخول */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-content {
-      background: var(--dark-800);
-      padding: 40px;
-      border-radius: 30px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      border: 1px solid var(--primary);
-      transform: scale(0.9);
-      transition: all 0.3s;
-    }
-
-    .modal-overlay.active .modal-content {
-      transform: scale(1);
-    }
-
-    .modal-icon {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-    }
-
-    .modal-icon i {
-      font-size: 40px;
-      color: white;
-    }
-
-    .modal-content h2 {
-      margin-bottom: 15px;
-    }
-
-    .modal-content p {
-      color: var(--text-secondary);
-      margin-bottom: 25px;
-    }
-
-    .btn-google {
-      background: white;
-      color: #333;
-      width: 100%;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-
-    .btn-google img {
-      width: 20px;
-    }
-
-    .modal-footer {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    /* زر واتساب عائم */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 30px;
-      left: 30px;
-      background: var(--whatsapp);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      color: white;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-      z-index: 100;
-      animation: pulse 2s infinite;
-    }
-
-    /* تذييل */
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-secondary);
-      border-top: 1px solid rgba(99, 102, 241, 0.2);
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.5rem; }
-      .bot-section { grid-template-columns: 1fr; }
-      .navbar { padding: 1rem; }
-      .logo span { font-size: 1.2rem; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>متجر كل شيء | حلول تقنية متكاملة</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;transition:all .3s ease;}
+
+:root{
+--primary:#6366f1;
+--secondary:#06b6d4;
+--accent:#10b981;
+--danger:#ef4444;
+--whatsapp:#25d366;
+--discord:#5865F2;
+--dark-900:#0a0a0f;
+--dark-800:#111118;
+--dark-700:#1a1a24;
+--text-primary:#f3f4f6;
+--text-secondary:#9ca3af;
+--border-glow:rgba(99,102,241,.3);
+}
+
+body{
+font-family:'Cairo',sans-serif;
+background:var(--dark-900);
+color:var(--text-primary);
+min-height:100vh;
+overflow-x:hidden;
+}
+
+.navbar{
+background:rgba(17,17,24,.95);
+backdrop-filter:blur(10px);
+border-bottom:1px solid var(--border-glow);
+padding:1rem 2rem;
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:1.5rem;
+font-weight:900;
+}
+
+.main-wrapper{
+max-width:1400px;
+margin:100px auto 50px;
+padding:0 20px;
+}
+
+.hero{
+text-align:center;
+margin-bottom:60px;
+padding:60px 20px;
+background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(6,182,212,.1));
+border-radius:30px;
+border:1px solid var(--border-glow);
+}
+
+.hero h1{
+font-size:3rem;
+font-weight:900;
+margin-bottom:20px;
+}
+
+.hero span{
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* BOT SECTION مثبت */
+.bot-section{
+position:sticky;
+top:110px;
+z-index:500;
+background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(6,182,212,.15));
+border-radius:30px;
+padding:40px;
+margin:50px 0;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+border:1px solid var(--border-glow);
+}
+
+.products-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.product-card{
+background:rgba(26,26,36,.7);
+backdrop-filter:blur(10px);
+border:1px solid rgba(99,102,241,.2);
+border-radius:24px;
+padding:25px;
+}
+
+.btn{
+padding:10px 24px;
+border-radius:50px;
+font-weight:600;
+cursor:pointer;
+border:none;
+font-family:'Cairo',sans-serif;
+display:inline-flex;
+align-items:center;
+gap:8px;
+text-decoration:none;
+}
+
+.btn-whatsapp{
+background:var(--whatsapp);
+color:white;
+width:100%;
+justify-content:center;
+}
+
+.btn-discord{
+background:var(--discord);
+color:white;
+padding:15px 30px;
+font-size:1.1rem;
+}
+
+.whatsapp-float{
+position:fixed;
+bottom:30px;
+left:30px;
+background:var(--whatsapp);
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+color:white;
+text-decoration:none;
+box-shadow:0 4px 20px rgba(37,211,102,.4);
+z-index:100;
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:var(--text-secondary);
+border-top:1px solid rgba(99,102,241,.2);
+}
+</style>
 </head>
+
 <body>
 
-<!-- شريط التنقل -->
 <nav class="navbar">
-  <div class="nav-container">
-    <div class="logo">
-      <i class="fas fa-cube"></i>
-      <span>متجر كل شيء</span>
-    </div>
-    
-    <div class="user-menu" id="userMenu">
-      <!-- سيتم ملئها عبر JavaScript -->
-    </div>
-  </div>
+<div class="logo">
+<i class="fas fa-cube"></i>
+<span>متجر كل شيء</span>
+</div>
 </nav>
 
-<!-- المحتوى الرئيسي -->
 <div class="main-wrapper">
-  
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>حلول <span>تقنية متكاملة</span><br>في مكان واحد</h1>
-    <p>نقدم أحدث الحلول البرمجية والتقنية لتطوير أعمالك ورفع كفاءتها</p>
-    
-    <div class="stats">
-      <div class="stat-item">
-        <div class="stat-number">+50</div>
-        <div class="stat-label">مشروع مكتمل</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">+30</div>
-        <div class="stat-label">عميل سعيد</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">دعم فني</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- قسم المنتجات -->
-  <h2 class="section-title">
-    <i class="fas fa-star"></i>
-    خدماتنا المميزة
-  </h2>
-  
-  <div class="products-grid">
-    <!-- بطاقة 1 - FiveM -->
-    <div class="product-card">
-      <div class="product-icon">
-        <i class="fas fa-gamepad"></i>
-      </div>
-      <h3>برمجة FiveM QBCore</h3>
-      <p class="product-desc">نظام متكامل لسيرفرات FiveM بأحدث التقنيات</p>
-      <ul class="product-features">
-        <li><i class="fas fa-check-circle"></i> قاعدة بيانات متكاملة</li>
-        <li><i class="fas fa-check-circle"></i> سكربتات حصرية</li>
-        <li><i class="fas fa-check-circle"></i> دعم فني 24/7</li>
-        <li><i class="fas fa-check-circle"></i> تحديثات مستمرة</li>
-      </ul>
-      <div class="product-price">$60</div>
-      <a href="https://wa.me/522435461?text=طلب%20برمجة%20FiveM" class="btn btn-whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        طلب الخدمة
-      </a>
-    </div>
+<section class="hero">
+<h1>حلول <span>تقنية متكاملة</span> في مكان واحد</h1>
+<p>نقدم أحدث الحلول البرمجية والتقنية لتطوير أعمالك</p>
+</section>
 
-    <!-- بطاقة 2 - مواقع ويب -->
-    <div class="product-card">
-      <div class="product-icon">
-        <i class="fas fa-code"></i>
-      </div>
-      <h3>تطوير مواقع الويب</h3>
-      <p class="product-desc">تصميم وبرمجة مواقع احترافية متوافقة مع جميع الأجهزة</p>
-      <ul class="product-features">
-        <li><i class="fas fa-check-circle"></i> تصميم responsive</li>
-        <li><i class="fas fa-check-circle"></i> لوحة تحكم متكاملة</li>
-        <li><i class="fas fa-check-circle"></i> تحسين SEO</li>
-        <li><i class="fas fa-check-circle"></i> استضافة مجانية 6 شهور</li>
-      </ul>
-      <div class="product-price">$15</div>
-      <a href="https://wa.me/522435461?text=طلب%20تطوير%20موقع" class="btn btn-whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        طلب الخدمة
-      </a>
-    </div>
-
-    <!-- بطاقة 3 - تطبيقات جوال -->
-    <div class="product-card">
-      <div class="product-icon">
-        <i class="fas fa-mobile-alt"></i>
-      </div>
-      <h3>تطبيقات الجوال</h3>
-      <p class="product-desc">تطبيقات أصلية iOS و Android بأحدث التقنيات</p>
-      <ul class="product-features">
-        <li><i class="fas fa-check-circle"></i> واجهة مستخدم عصرية</li>
-        <li><i class="fas fa-check-circle"></i> تكامل مع قواعد البيانات</li>
-        <li><i class="fas fa-check-circle"></i> إشعارات فورية</li>
-        <li><i class="fas fa-check-circle"></i> لوحة تحكم</li>
-      </ul>
-      <div class="product-price">$120</div>
-      <a href="https://wa.me/522435461?text=طلب%20تطبيق%20جوال" class="btn btn-whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        طلب الخدمة
-      </a>
-    </div>
-
-    <!-- بطاقة 4 - حماية -->
-    <div class="product-card">
-      <div class="product-icon">
-        <i class="fas fa-shield-alt"></i>
-      </div>
-      <h3>حماية السيرفرات</h3>
-      <p class="product-desc">حماية متكاملة من هجمات DDoS والاختراقات</p>
-      <ul class="product-features">
-        <li><i class="fas fa-check-circle"></i> حماية DDoS</li>
-        <li><i class="fas fa-check-circle"></i> فحص الثغرات</li>
-        <li><i class="fas fa-check-circle"></i> نسخ احتياطي يومي</li>
-        <li><i class="fas fa-check-circle"></i> تقارير أسبوعية</li>
-      </ul>
-      <div class="product-price">$30</div>
-      <a href="https://wa.me/522435461?text=طلب%20خدمة%20حماية" class="btn btn-whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        طلب الخدمة
-      </a>
-    </div>
-  </div>
-
-  <!-- قسم البوت -->
-  <section class="bot-section">
-    <div class="bot-info">
-      <h2>🤖 Bot Pro Max</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 20px;">البوت الأقوى لإدارة وحماية سيرفرات الديسكورد بشكل تلقائي بالكامل</p>
-      
-      <div class="bot-stats">
-        <div class="bot-stat">
-          <div class="number">+15</div>
-          <div class="label">سيرفر نشط</div>
-        </div>
-        <div class="bot-stat">
-          <div class="number">99.9%</div>
-          <div class="label">وقت تشغيل</div>
-        </div>
-        <div class="bot-stat">
-          <div class="number">24/7</div>
-          <div class="label">دعم فني</div>
-        </div>
-      </div>
-
-      <ul style="list-style: none; margin-bottom: 30px;">
-        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-left: 10px;"></i> حماية متقدمة من الرابات</li>
-        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-left: 10px;"></i> نظام مستويات متكامل</li>
-        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-left: 10px;"></i> أوامر ترفيهية وإدارية</li>
-        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-left: 10px;"></i> تقارير وإحصائيات</li>
-      </ul>
-
-      <a href="https://discord.com/oauth2/authorize?client_id=1396302389279195248&permissions=8&scope=bot" class="btn btn-discord" target="_blank">
-        <i class="fab fa-discord"></i>
-        إضافة البوت للسيرفر
-      </a>
-    </div>
-    
-    <div style="text-align: center;">
-      <i class="fas fa-robot" style="font-size: 200px; color: var(--primary); opacity: 0.5;"></i>
-    </div>
-  </section>
+<!-- BOT PRO MAX أصبح فوق المنتجات ومثبت -->
+<section class="bot-section">
+<div>
+<h2>🤖 Bot Pro Max</h2>
+<p style="color:var(--text-secondary);margin-bottom:20px;">
+البوت الأقوى لإدارة وحماية سيرفرات الديسكورد بشكل تلقائي
+</p>
+<a href="https://discord.com/oauth2/authorize?client_id=1396302389279195248&permissions=8&scope=bot"
+class="btn btn-discord" target="_blank">
+<i class="fab fa-discord"></i>
+إضافة البوت للسيرفر
+</a>
 </div>
 
-<!-- مودال تسجيل الدخول -->
-<div class="modal-overlay" id="loginModal">
-  <div class="modal-content">
-    <div class="modal-icon">
-      <i class="fas fa-user-lock"></i>
-    </div>
-    <h2>تسجيل الدخول</h2>
-    <p id="modalMessage">يرجى تسجيل الدخول للوصول إلى جميع الخدمات والميزات الحصرية</p>
-    
-    <button onclick="loginWithGoogle()" class="btn btn-google" id="googleLoginBtn">
-      <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 20px; height: 20px;">
-      المتابعة بحساب Google
-    </button>
-    
-    <p class="modal-footer">
-      <i class="fas fa-shield-alt" style="color: var(--primary);"></i>
-      معلوماتك آمنة 100%
-    </p>
-  </div>
+<div style="text-align:center;">
+<i class="fas fa-robot" style="font-size:150px;color:var(--primary);opacity:.5;"></i>
+</div>
+</section>
+
+<h2 style="margin-bottom:30px;">خدماتنا المميزة</h2>
+
+<div class="products-grid">
+
+<div class="product-card">
+<h3>برمجة FiveM QBCore</h3>
+<p style="color:var(--text-secondary);margin-bottom:15px;">نظام متكامل لسيرفرات FiveM</p>
+<div>$60</div>
+<a href="https://wa.me/522435461?text=طلب%20برمجة%20FiveM"
+class="btn btn-whatsapp" target="_blank">
+<i class="fab fa-whatsapp"></i> طلب الخدمة
+</a>
 </div>
 
-<!-- زر واتساب عائم -->
+<div class="product-card">
+<h3>تطوير مواقع الويب</h3>
+<p style="color:var(--text-secondary);margin-bottom:15px;">مواقع احترافية متوافقة</p>
+<div>$15</div>
+<a href="https://wa.me/522435461?text=طلب%20موقع"
+class="btn btn-whatsapp" target="_blank">
+<i class="fab fa-whatsapp"></i> طلب الخدمة
+</a>
+</div>
+
+</div>
+</div>
+
 <a href="https://wa.me/522435461" class="whatsapp-float" target="_blank">
-  <i class="fab fa-whatsapp"></i>
+<i class="fab fa-whatsapp"></i>
 </a>
 
 <footer>
-  <p>© 2026 متجر كل شيء | جميع الحقوق محفوظة</p>
-  <p style="font-size: 0.9rem; margin-top: 10px;">نحن نقدم أفضل الحلول التقنية لعملائنا</p>
+<p>© 2026 متجر كل شيء | جميع الحقوق محفوظة</p>
 </footer>
 
-<script>
-  // إعدادات Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyAVQnJ5yecFMLRkrKqZKsLIxZKp49zK5jY",
-    authDomain: "studio-2251445927-ce3ff.firebaseapp.com",
-    databaseURL: "https://studio-2251445927-ce3ff-default-rtdb.firebaseio.com",
-    projectId: "studio-2251445927-ce3ff",
-    storageBucket: "studio-2251445927-ce3ff.firebasestorage.app",
-    messagingSenderId: "26149017300",
-    appId: "1:26149017300:web:4f30ddd91817f6393ecd41"
-  };
+<!-- Firebase v12 Module -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
 
-  // تهيئة Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.database();
+const firebaseConfig = {
+apiKey: "AIzaSyAVQnJ5yecFMLRkrKqZKsLIxZKp49zK5jY",
+authDomain: "studio-2251445927-ce3ff.firebaseapp.com",
+databaseURL: "https://studio-2251445927-ce3ff-default-rtdb.firebaseio.com",
+projectId: "studio-2251445927-ce3ff",
+storageBucket: "studio-2251445927-ce3ff.firebasestorage.app",
+messagingSenderId: "26149017300",
+appId: "1:26149017300:web:4f30ddd91817f6393ecd41",
+measurementId: "G-N8JNNSTRCL"
+};
 
-  // عناصر DOM
-  const userMenu = document.getElementById('userMenu');
-  const loginModal = document.getElementById('loginModal');
-  const modalMessage = document.getElementById('modalMessage');
-  const googleLoginBtn = document.getElementById('googleLoginBtn');
-
-  // التحقق من حالة تسجيل الدخول
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      // مستخدم مسجل دخول
-      loginModal.classList.remove('active');
-      
-      // حفظ/تحديث بيانات المستخدم
-      db.ref('users/' + user.uid).update({
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL || 'https://via.placeholder.com/40',
-        lastSeen: Date.now(),
-        lastActive: new Date().toISOString()
-      });
-
-      // عرض معلومات المستخدم
-      userMenu.innerHTML = `
-        <div class="user-info">
-          <img src="${user.photoURL || 'https://via.placeholder.com/40'}" class="user-avatar" alt="صورة المستخدم">
-          <span class="user-name">${user.displayName || 'مستخدم'}</span>
-        </div>
-        <button onclick="logout()" class="btn btn-logout">
-          <i class="fas fa-sign-out-alt"></i>
-          تسجيل خروج
-        </button>
-      `;
-    } else {
-      // لا يوجد مستخدم
-      userMenu.innerHTML = `
-        <div class="auth-buttons">
-          <button onclick="showLoginModal()" class="btn btn-primary">
-            <i class="fas fa-sign-in-alt"></i>
-            تسجيل الدخول
-          </button>
-        </div>
-      `;
-    }
-  });
-
-  // عرض مودال تسجيل الدخول
-  window.showLoginModal = function() {
-    loginModal.classList.add('active');
-    modalMessage.textContent = 'يرجى تسجيل الدخول للوصول إلى جميع الخدمات والميزات الحصرية';
-  };
-
-  // تسجيل الدخول بجوجل
-  window.loginWithGoogle = function() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    
-    googleLoginBtn.disabled = true;
-    googleLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
-
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        console.log('تم تسجيل الدخول بنجاح:', result.user.displayName);
-        loginModal.classList.remove('active');
-        
-        // رسالة ترحيب
-        showNotification('مرحباً بك!', 'تم تسجيل الدخول بنجاح', 'success');
-      })
-      .catch((error) => {
-        console.error('خطأ في تسجيل الدخول:', error);
-        modalMessage.textContent = 'حدث خطأ في تسجيل الدخول. الرجاء المحاولة مرة أخرى.';
-        
-        showNotification('خطأ', 'فشل تسجيل الدخول', 'error');
-      })
-      .finally(() => {
-        googleLoginBtn.disabled = false;
-        googleLoginBtn.innerHTML = '<img src="https://www.google.com/favicon.ico" style="width: 20px;"> المتابعة بحساب Google';
-      });
-  };
-
-  // تسجيل الخروج
-  window.logout = function() {
-    auth.signOut()
-      .then(() => {
-        console.log('تم تسجيل الخروج');
-        showNotification('تم تسجيل الخروج', 'نتمنى رؤيتك قريباً', 'info');
-      })
-      .catch((error) => {
-        console.error('خطأ في تسجيل الخروج:', error);
-      });
-  };
-
-  // إشعارات مؤقتة (بسيطة)
-  function showNotification(title, message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: ${type === 'success' ? 'var(--accent)' : type === 'error' ? 'var(--danger)' : 'var(--primary)'};
-      color: white;
-      padding: 15px 30px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      z-index: 10000;
-      animation: slideDown 0.3s ease;
-    `;
-    notification.innerHTML = `<strong>${title}</strong> - ${message}`;
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      notification.style.animation = 'slideUp 0.3s ease';
-      setTimeout(() => notification.remove(), 300);
-    }, 3000);
-  }
-
-  // إضافة بعض الأنيميشن
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes slideDown {
-      from { transform: translate(-50%, -100%); opacity: 0; }
-      to { transform: translate(-50%, 0); opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { transform: translate(-50%, 0); opacity: 1; }
-      to { transform: translate(-50%, -100%); opacity: 0; }
-    }
-  `;
-  document.head.appendChild(style);
-
-  // إغلاق المودال عند النقر خارج المحتوى
-  loginModal.addEventListener('click', (e) => {
-    if (e.target === loginModal) {
-      loginModal.classList.remove('active');
-    }
-  });
-
-  // حماية الموقع (اختصارات)
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.addEventListener('keydown', (e) => {
-    if (e.keyCode === 123 || 
-        (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
-        (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
-        (e.ctrlKey && e.keyCode === 85)) {
-      e.preventDefault();
-      return false;
-    }
-  });
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 </script>
+
 </body>
 </html>

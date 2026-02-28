@@ -3,83 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر كل شيء | حلول تقنية متكاملة</title>
+    <title>متجر كل شيء | حلول تقنية متكاملة 🌙✨</title>
     
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- AOS Library (تأثيرات التمرير) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
+        /* متغيرات الألوان المحسنة */
+        :root {
+            --main-purple: #7b2eda;
+            --main-purple-light: #9d4eff;
+            --ramadan-gold: #ffd966;
+            --ramadan-gold-dark: #e6b422;
+            --bg-body: #0c0b14;
+            --bg-card: rgba(22, 22, 37, 0.8);
+            --whatsapp-green: #25d366;
+            --discord-blue: #5865f2;
+            --glow-color: rgba(255, 215, 0, 0.6);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
             font-family: 'Cairo', sans-serif;
-            min-height: 100vh;
-            transition: all 0.3s ease;
         }
 
-        /* الثيم الداكن (الافتراضي) */
-        body.dark-theme {
-            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2f 100%);
-            color: #f3f4f6;
-        }
-
-        body.dark-theme .navbar,
-        body.dark-theme .bot-card,
-        body.dark-theme .product-card,
-        body.dark-theme .stats-container,
-        body.dark-theme footer {
-            background: rgba(26, 26, 36, 0.8);
-            border-color: rgba(99, 102, 241, 0.3);
-        }
-
-        body.dark-theme .product-features li {
-            color: #d1d5db;
-        }
-
-        /* الثيم الفاتح */
-        body.light-theme {
-            background: linear-gradient(135deg, #f0f4ff 0%, #e6eeff 100%);
-            color: #1a1a2f;
-        }
-
-        body.light-theme .navbar,
-        body.light-theme .bot-card,
-        body.light-theme .product-card,
-        body.light-theme .stats-container,
-        body.light-theme footer {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: rgba(99, 102, 241, 0.5);
-            backdrop-filter: blur(10px);
-            color: #1a1a2f;
-        }
-
-        body.light-theme .product-features li {
-            color: #4b5563;
-        }
-
-        body.light-theme .section-title {
-            color: #1a1a2f;
-        }
-
-        body.light-theme .stat-number {
-            color: #1a1a2f;
-        }
-
-        /* منع فتح قائمة المطور */
         body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+            background-color: var(--bg-body);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
+        /* خلفية نجوم متحركة */
         body::before {
             content: '';
             position: fixed;
@@ -87,830 +50,501 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="50" cy="50" r="40" fill="none" stroke="%236366f1" stroke-width="1"/><circle cx="50" cy="50" r="30" fill="none" stroke="%2306b6d4" stroke-width="1"/></svg>');
-            background-size: 100px 100px;
-            animation: moveBackground 60s linear infinite;
+            background: radial-gradient(circle at 20% 30%, rgba(123, 46, 218, 0.15) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 35%),
+                        repeating-linear-gradient(transparent, transparent 50px, rgba(255, 255, 255, 0.01) 50px, rgba(255, 255, 255, 0.01) 51px);
             pointer-events: none;
             z-index: -1;
+            animation: starFloat 20s linear infinite;
         }
 
-        @keyframes moveBackground {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* شريط التنقل العلوي */
-        .navbar {
+        /* طبقة إضافية للنجوم المتلألئة */
+        body::after {
+            content: '';
             position: fixed;
-            width: 100%;
             top: 0;
-            backdrop-filter: blur(10px);
-            padding: 0.8rem 2rem;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+            animation: twinkling 4s ease-in-out infinite;
+        }
+
+        @keyframes starFloat {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 50px; }
+        }
+
+        @keyframes twinkling {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.2; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* شريط علوي مع تأثير زجاجي */
+        .top-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            border-bottom: 2px solid;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px 30px;
+            background: rgba(22, 22, 37, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        .top-nav:hover {
+            border-color: var(--ramadan-gold);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
-            font-size: 2.2rem;
-            color: #6366f1;
-            animation: pulse 2s infinite;
-            filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
-        }
-
-        .logo span {
-            font-size: 1.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, currentColor, #6366f1, #06b6d4);
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #fff, var(--ramadan-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .theme-toggle {
-            display: flex;
-            gap: 5px;
-        }
-
-        .theme-btn {
-            padding: 5px 12px;
-            border-radius: 50px;
-            border: 2px solid #6366f1;
-            cursor: pointer;
-            font-weight: 600;
-            background: transparent;
-            color: inherit;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .theme-btn.active {
-            background: #6366f1;
-            color: white;
-        }
-
-        .theme-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* المحتوى الرئيسي */
-        .main-wrapper {
-            max-width: 1400px;
-            margin: 100px auto 50px;
-            padding: 0 30px;
-        }
-
-        /* بطاقة البوت المميزة */
-        .bot-card {
-            backdrop-filter: blur(10px);
-            border: 2px solid #6366f1;
+        .ramadan-greet {
+            background: linear-gradient(135deg, var(--ramadan-gold), #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 8px 16px;
             border-radius: 40px;
-            padding: 40px;
-            margin-bottom: 60px;
-            position: relative;
-            overflow: hidden;
-            animation: glow 3s ease-in-out infinite;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); }
-            50% { box-shadow: 0 0 60px rgba(99, 102, 241, 0.6); }
-        }
-
-        .bot-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .bot-content {
+        /* بطاقة البوت المحسنة */
+        .bot-hero {
+            background: rgba(22, 22, 37, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 40px;
+            align-items: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+            margin-bottom: 40px;
+            transition: 0.4s;
+        }
+
+        .bot-hero:hover {
+            border-color: var(--ramadan-gold);
+            box-shadow: 0 20px 60px rgba(123, 46, 218, 0.3), 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .bot-hero { flex-direction: row; text-align: right; }
+        }
+
+        /* صورة البوت مع تأثير دوران خفيف */
+        .bot-img-box {
             position: relative;
-            z-index: 1;
-        }
-
-        .bot-avatar {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #6366f1, #06b6d4);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 5px solid #ffd700;
-            animation: bounce 2s ease infinite;
             flex-shrink: 0;
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes bounce {
+        .bot-img-box img {
+            width: 180px;
+            height: 180px;
+            border-radius: 30px;
+            border: 4px solid var(--ramadan-gold);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+            transition: 0.3s;
+        }
+
+        .bot-img-box:hover img {
+            transform: scale(1.02) rotate(2deg);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.7);
+        }
+
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
         }
 
-        .bot-avatar i {
-            font-size: 5rem;
-            color: white;
-        }
-
-        .bot-info {
-            flex: 1;
-        }
-
-        .bot-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .hero-text h1 {
+            font-size: 3rem;
             margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff, var(--ramadan-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero-text p {
+            color: #d0d0ff;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* أزرار محسنة */
+        .btn-flex {
+            display: flex;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
-        .bot-header h2 {
-            font-size: 2.5rem;
-            color: #6366f1;
-        }
-
-        .verified-badge {
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            color: #000;
-            padding: 8px 20px;
+        .btn {
+            padding: 15px 35px;
             border-radius: 50px;
-            font-size: 1rem;
+            text-decoration: none;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .bot-description {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            padding: 15px 20px;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 30px;
-            border-right: 5px solid #6366f1;
-        }
-
-        .bot-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .bot-feature-item {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid #6366f1;
-            border-radius: 25px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .bot-feature-item:hover {
-            transform: scale(1.05);
-            background: rgba(99, 102, 241, 0.2);
-        }
-
-        .bot-feature-item i {
-            font-size: 2rem;
-            color: #6366f1;
-            margin-bottom: 10px;
-        }
-
-        .bot-feature-item span {
-            display: block;
-            font-weight: 700;
+            gap: 10px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
             font-size: 1.1rem;
-            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .bot-feature-item small {
-            color: #9ca3af;
-            font-size: 0.85rem;
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
         }
 
-        .bot-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 30px 0;
-            padding: 20px 0;
-            border-top: 2px solid rgba(99, 102, 241, 0.3);
-            border-bottom: 2px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .bot-stat {
-            text-align: center;
-        }
-
-        .bot-stat .number {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #6366f1;
-        }
-
-        .bot-stat .label {
-            font-size: 1rem;
-            color: #9ca3af;
-        }
-
-        .bot-actions {
-            display: flex;
-            gap: 20px;
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-discord {
-            background: #5865F2;
+            background: var(--discord-blue);
             color: white;
-            flex: 1;
-            justify-content: center;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 0;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-discord:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px #5865F2;
-        }
-
-        .btn-discord i {
-            font-size: 1.5rem;
-        }
-
-        .btn-whatsapp-bot {
-            background: linear-gradient(135deg, #25d366, #128C7E);
-            color: white;
-            flex: 1;
-            justify-content: center;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 0;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-whatsapp-bot:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            position: relative;
-        }
-
-        .section-title i {
-            color: #6366f1;
-            font-size: 3rem;
-            filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            right: 0;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(135deg, #6366f1, #06b6d4);
-            border-radius: 2px;
-        }
-
-        /* شبكة المنتجات */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .product-card {
-            backdrop-filter: blur(10px);
-            border: 1px solid;
-            border-radius: 30px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #6366f1;
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
-        }
-
-        @keyframes fadeInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .product-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #6366f1;
-        }
-
-        .product-features {
-            list-style: none;
-            margin-bottom: 25px;
-            padding: 0;
-        }
-
-        .product-features li {
-            margin-bottom: 12px;
-            display: flex;
-            gap: 10px;
-            font-size: 1rem;
-        }
-
-        .product-features li i {
-            color: #10b981;
-            font-size: 1.2rem;
-        }
-
-        .product-price {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #6366f1;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
         }
 
         .btn-whatsapp {
-            background: linear-gradient(135deg, #25d366, #128C7E);
+            background: var(--whatsapp-green);
             color: white;
-            width: 100%;
-            justify-content: center;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            filter: brightness(1.2);
+        }
+
+        /* شبكة الخدمات مع تأثيرات بطاقات مذهلة */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .card {
+            background: rgba(22, 22, 37, 0.6);
+            backdrop-filter: blur(12px);
+            padding: 35px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            transition: 0.4s ease;
             display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 0;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        .btn-whatsapp:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--main-purple), var(--ramadan-gold));
+            transform: scaleX(0);
+            transition: transform 0.4s;
         }
 
-        /* إحصائيات */
-        .stats-container {
-            display: flex;
-            justify-content: space-around;
-            margin: 60px 0;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            border: 1px solid;
+        .card:hover::after {
+            transform: scaleX(1);
         }
 
-        .stat-item {
-            text-align: center;
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--ramadan-gold);
+            box-shadow: 0 30px 50px rgba(123, 46, 218, 0.3), 0 0 0 2px rgba(255, 215, 0, 0.2) inset;
         }
 
-        .stat-item i {
-            font-size: 2.5rem;
-            color: #6366f1;
+        .card i {
+            font-size: 3rem;
+            color: var(--ramadan-gold);
+            margin-bottom: 20px;
+            transition: 0.3s;
+            animation: iconGlow 3s infinite;
+        }
+
+        .card:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: #fff;
+            text-shadow: 0 0 20px gold;
+        }
+
+        @keyframes iconGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px gold); }
+            50% { filter: drop-shadow(0 0 20px gold); }
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
             margin-bottom: 10px;
         }
 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 900;
-        }
-
-        .stat-label {
+        .card p {
+            color: #b0b0d0;
+            margin-bottom: 25px;
             font-size: 1rem;
         }
 
-        /* التذييل مع التوثيق */
-        footer {
+        .price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--ramadan-gold);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255,215,0,0.5);
+        }
+
+        /* قسم لماذا نحن؟ */
+        .why-us {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 60px 0;
+        }
+
+        .feature {
+            background: rgba(22, 22, 37, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 30px;
             text-align: center;
-            padding: 40px;
-            border-top: 1px solid;
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,215,0,0.1);
+            transition: 0.3s;
         }
 
-        .developer-credit {
-            background: linear-gradient(135deg, #6366f1, #06b6d4);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            margin: 20px auto;
-            font-weight: 700;
-            font-size: 1.2rem;
-            border: 2px solid #ffd700;
+        .feature:hover {
+            border-color: var(--ramadan-gold);
+            transform: scale(1.05);
         }
 
-        .developer-credit i {
-            color: #ffd700;
-            margin: 0 5px;
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--ramadan-gold);
+            margin-bottom: 15px;
+        }
+
+        .feature h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* شريط عروض رمضانية متحرك */
+        .offer-bar {
+            background: linear-gradient(135deg, #7b2eda, #b84eff);
+            padding: 18px;
+            border-radius: 60px;
+            text-align: center;
+            margin: 40px 0;
+            font-weight: 900;
+            font-size: 1.3rem;
+            box-shadow: 0 0 30px #7b2eda;
+            animation: pulse 2s infinite;
+            border: 2px solid gold;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8)); }
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px #7b2eda; }
+            50% { transform: scale(1.02); box-shadow: 0 0 50px #ffd966; }
         }
 
-        /* تحسينات للشاشات الصغيرة */
-        @media (max-width: 992px) {
-            .bot-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .bot-header {
-                justify-content: center;
-            }
+        .offer-bar i {
+            margin: 0 10px;
         }
 
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .logo span {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .stats-container {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .bot-actions {
-                flex-direction: column;
-            }
-            
-            .bot-stats {
-                flex-direction: column;
-                gap: 20px;
-            }
+        /* تذييل محسن */
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .dev-badge {
+            border: 2px solid var(--ramadan-gold);
+            color: var(--ramadan-gold);
+            padding: 10px 30px;
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+            transition: 0.3s;
+        }
+
+        .dev-badge:hover {
+            background: var(--ramadan-gold);
+            color: #000;
+            box-shadow: 0 0 40px gold;
+        }
+
+        /* تأثيرات التمرير AOS */
+        [data-aos] {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
-<body class="dark-theme">
+<body>
 
-<nav class="navbar">
-    <div class="logo">
-        <i class="fas fa-cube"></i>
-        <span>متجر كل شيء</span>
-    </div>
+<div class="container">
+    <!-- الشريط العلوي -->
+    <nav class="top-nav" data-aos="fade-down" data-aos-duration="1000">
+        <div class="logo"><i class="fas fa-cube"></i> متجر كل شيء</div>
+        <div class="ramadan-greet"><i class="fas fa-moon"></i> رمضان كريم 2026</div>
+    </nav>
 
-    <div class="nav-controls">
-        <div class="theme-toggle">
-            <button class="theme-btn active" onclick="setTheme('dark')">🌙</button>
-            <button class="theme-btn" onclick="setTheme('light')">☀️</button>
+    <!-- بطاقة البوت الرئيسية -->
+    <section class="bot-hero" data-aos="fade-up" data-aos-duration="1200">
+        <div class="bot-img-box">
+            <img src="https://images-ext-1.discordapp.net/external/DzoZ-yGT7Zi8IC-IA3lYI8r_1qxTHDmpyp2I82tFL_I/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1229182015161499699/403de32ea1756f0f2e648ddd7bd796f4.webp?format=webp&width=673&height=673" alt="Bot Logo">
         </div>
-    </div>
-</nav>
-
-<div class="main-wrapper">
-    <!-- بطاقة البوت المنفصلة في أعلى الصفحة -->
-    <div class="bot-card">
-        <div class="bot-content">
-            <div class="bot-avatar">
-                <i class="fas fa-robot"></i>
-            </div>
+        
+        <div class="hero-text">
+            <h1>Bot Pro Max <i class="fas fa-check-circle" style="color: #4ade80; font-size: 1.5rem;"></i></h1>
+            <p>أقوى بوت عربي لإدارة وحماية السيرفرات. ميزات حصرية وتحديثات رمضانية خاصة لضمان أفضل تجربة لمجتمعك.</p>
             
-            <div class="bot-info">
-                <div class="bot-header">
-                    <h2>Bot Pro Max</h2>
-                    <span class="verified-badge">
-                        <i class="fas fa-check-circle"></i> موثق رسمياً
-                    </span>
-                </div>
-                
-                <div class="bot-description">
-                    <i class="fas fa-quote-right" style="color: #6366f1; margin-left: 10px;"></i>
-                    أقوى بوت متكامل لإدارة وحماية سيرفرات Discord مع مميزات حصرية وتحديثات مستمرة
-                </div>
+            <div class="btn-flex">
+                <a href="https://discord.com/oauth2/authorize?client_id=1396302389279195248&permissions=8&integration_type=0&scope=bot" class="btn btn-discord"><i class="fab fa-discord"></i> إضافة البوت</a>
+                <a href="https://wa.me/522435461?text=استفسار%20عن%20بوت%20برو%20ماكس" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> دعم البوت</a>
+            </div>
+        </div>
+    </section>
 
-                <div class="bot-features">
-                    <div class="bot-feature-item">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>حماية متقدمة</span>
-                        <small>نظام حماية من الهجمات</small>
-                    </div>
-                    <div class="bot-feature-item">
-                        <i class="fas fa-music"></i>
-                        <span>موسيقى عالية الجودة</span>
-                        <small>دعم جميع المنصات</small>
-                    </div>
-                    <div class="bot-feature-item">
-                        <i class="fas fa-chart-line"></i>
-                        <span>تحليلات وإحصائيات</span>
-                        <small>تقارير دقيقة</small>
-                    </div>
-                    <div class="bot-feature-item">
-                        <i class="fas fa-ticket-alt"></i>
-                        <span>نظام تذاكر</span>
-                        <small>دعم فني منظم</small>
-                    </div>
-                    <div class="bot-feature-item">
-                        <i class="fas fa-clock"></i>
-                        <span>24/7 تشغيل</span>
-                        <small>دون توقف</small>
-                    </div>
-                    <div class="bot-feature-item">
-                        <i class="fas fa-database"></i>
-                        <span>نسخ احتياطي</span>
-                        <small>حماية البيانات</small>
-                    </div>
-                </div>
+    <!-- شريط العروض الرمضانية -->
+    <div class="offer-bar" data-aos="zoom-in" data-aos-duration="800">
+        <i class="fas fa-star"></i> عروض رمضان: خصم 20% على جميع الخدمات حتى نهاية الشهر <i class="fas fa-star"></i>
+    </div>
 
-                <div class="bot-stats">
-                    <div class="bot-stat">
-                        <div class="number">+50K</div>
-                        <div class="label">سيرفر</div>
-                    </div>
-                    <div class="bot-stat">
-                        <div class="number">+2M</div>
-                        <div class="label">مستخدم</div>
-                    </div>
-                    <div class="bot-stat">
-                        <div class="number">99.9%</div>
-                        <div class="label">وقت تشغيل</div>
-                    </div>
-                    <div class="bot-stat">
-                        <div class="number">24/7</div>
-                        <div class="label">دعم</div>
-                    </div>
-                </div>
+    <!-- شبكة الخدمات -->
+    <div class="services-grid">
+        <div class="card" data-aos="flip-right" data-aos-delay="100">
+            <div>
+                <i class="fas fa-gamepad"></i>
+                <h3>برمجة FiveM</h3>
+                <p>تطوير سيرفرات QBCore كاملة مع سكربتات حصرية وأنظمة حماية متقدمة.</p>
+            </div>
+            <div>
+                <div class="price">$60</div>
+                <a href="https://wa.me/522435461?text=أريد%20طلب%20برمجة%20FiveM" class="btn btn-whatsapp" style="width: 100%; justify-content: center;"><i class="fab fa-whatsapp"></i> اطلب الآن</a>
+            </div>
+        </div>
 
-                <div class="bot-actions">
-                    <a href="https://discord.com/oauth2/authorize?client_id=1396302389279195248&permissions=8&scope=bot" class="btn-discord" target="_blank">
-                        <i class="fab fa-discord"></i> إضافة البوت
-                    </a>
-                    <a href="https://wa.me/522435461?text=استفسار%20عن%20البوت" class="btn-whatsapp-bot" target="_blank">
-                        <i class="fab fa-whatsapp"></i> دعم البوت
-                    </a>
-                </div>
+        <div class="card" data-aos="flip-right" data-aos-delay="200">
+            <div>
+                <i class="fas fa-code"></i>
+                <h3>برمجة مواقع</h3>
+                <p>تصميم وتطوير مواقع ويب احترافية متوافقة مع الجوال وبسرعة تنفيذ عالية.</p>
+            </div>
+            <div>
+                <div class="price">$15</div>
+                <a href="https://wa.me/522435461?text=أريد%20طلب%20برمجة%20موقع" class="btn btn-whatsapp" style="width: 100%; justify-content: center;"><i class="fab fa-whatsapp"></i> اطلب الآن</a>
+            </div>
+        </div>
+
+        <div class="card" data-aos="flip-right" data-aos-delay="300">
+            <div>
+                <i class="fas fa-shield-alt"></i>
+                <h3>حماية سيرفرات</h3>
+                <p>تأمين سيرفرات ديسكورد ضد التخريب وضمان استقرارها 24/7.</p>
+            </div>
+            <div>
+                <div class="price">$30</div>
+                <a href="https://wa.me/522435461?text=أريد%20طلب%20خدمة%20حماية%20السيرفرات" class="btn btn-whatsapp" style="width: 100%; justify-content: center;"><i class="fab fa-whatsapp"></i> اطلب الآن</a>
             </div>
         </div>
     </div>
 
-    <!-- قسم الترحيب -->
-    <div style="text-align: center; margin-bottom: 50px;">
-        <h1 style="font-size: 3rem; margin-bottom: 20px; background: linear-gradient(135deg, #6366f1, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-            حلول تقنية إحترافية
-        </h1>
-        <p style="color: #9ca3af; font-size: 1.2rem;">نقدم لك أفضل الخدمات التقنية بأسعار منافسة وجودة عالية</p>
-    </div>
-
-    <h2 class="section-title">
-        <i class="fas fa-star"></i> خدماتنا المميزة
-    </h2>
-    
-    <div class="products-grid">
-        <!-- بطاقة FiveM -->
-        <div class="product-card">
-            <h3><i class="fas fa-gamepad"></i> برمجة FiveM QBCore</h3>
-            <ul class="product-features">
-                <li><i class="fas fa-check-circle"></i> قاعدة بيانات متكاملة</li>
-                <li><i class="fas fa-check-circle"></i> سكربتات حصرية</li>
-                <li><i class="fas fa-check-circle"></i> دعم فني 24/7</li>
-                <li><i class="fas fa-check-circle"></i> تحديثات مستمرة</li>
-                <li><i class="fas fa-check-circle"></i> نظام اقتصاد متطور</li>
-            </ul>
-            <div class="product-price">$60</div>
-            <a href="https://wa.me/522435461?text=طلب%20برمجة%20FiveM" class="btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> طلب الخدمة
-            </a>
+    <!-- قسم لماذا نحن؟ -->
+    <div class="why-us">
+        <div class="feature" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-bolt"></i>
+            <h4>سرعة التنفيذ</h4>
+            <p>نسلم مشروعك في أقصر وقت ممكن دون تأخير.</p>
         </div>
-
-        <!-- بطاقة تطوير مواقع -->
-        <div class="product-card">
-            <h3><i class="fas fa-code"></i> تطوير مواقع الويب</h3>
-            <ul class="product-features">
-                <li><i class="fas fa-check-circle"></i> تصميم responsive</li>
-                <li><i class="fas fa-check-circle"></i> لوحة تحكم متكاملة</li>
-                <li><i class="fas fa-check-circle"></i> تحسين SEO</li>
-                <li><i class="fas fa-check-circle"></i> استضافة مجانية 6 شهور</li>
-                <li><i class="fas fa-check-circle"></i> شهادة SSL مجانية</li>
-            </ul>
-            <div class="product-price">$15</div>
-            <a href="https://wa.me/522435461?text=طلب%20تطوير%20موقع" class="btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> طلب الخدمة
-            </a>
-        </div>
-
-        <!-- بطاقة تطبيقات جوال -->
-        <div class="product-card">
-            <h3><i class="fas fa-mobile-alt"></i> تطبيقات الجوال</h3>
-            <ul class="product-features">
-                <li><i class="fas fa-check-circle"></i> واجهة مستخدم عصرية</li>
-                <li><i class="fas fa-check-circle"></i> تكامل مع قواعد البيانات</li>
-                <li><i class="fas fa-check-circle"></i> إشعارات فورية</li>
-                <li><i class="fas fa-check-circle"></i> لوحة تحكم</li>
-                <li><i class="fas fa-check-circle"></i> دعم iOS و Android</li>
-            </ul>
-            <div class="product-price">$120</div>
-            <a href="https://wa.me/522435461?text=طلب%20تطبيق%20جوال" class="btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> طلب الخدمة
-            </a>
-        </div>
-
-        <!-- بطاقة حماية السيرفرات -->
-        <div class="product-card">
-            <h3><i class="fas fa-shield-alt"></i> حماية السيرفرات</h3>
-            <ul class="product-features">
-                <li><i class="fas fa-check-circle"></i> حماية DDoS</li>
-                <li><i class="fas fa-check-circle"></i> فحص الثغرات</li>
-                <li><i class="fas fa-check-circle"></i> نسخ احتياطي يومي</li>
-                <li><i class="fas fa-check-circle"></i> تقارير أسبوعية</li>
-                <li><i class="fas fa-check-circle"></i> مراقبة 24/7</li>
-            </ul>
-            <div class="product-price">$30</div>
-            <a href="https://wa.me/522435461?text=طلب%20خدمة%20حماية" class="btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> طلب الخدمة
-            </a>
-        </div>
-    </div>
-
-    <!-- إحصائيات -->
-    <div class="stats-container">
-        <div class="stat-item">
-            <i class="fas fa-project-diagram"></i>
-            <div class="stat-number">+150</div>
-            <div class="stat-label">مشروع مكتمل</div>
-        </div>
-        <div class="stat-item">
-            <i class="fas fa-users"></i>
-            <div class="stat-number">+50</div>
-            <div class="stat-label">عميل سعيد</div>
-        </div>
-        <div class="stat-item">
+        <div class="feature" data-aos="fade-up" data-aos-delay="200">
             <i class="fas fa-headset"></i>
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">دعم فني</div>
+            <h4>دعم فني 24/7</h4>
+            <p>فريق متواجد لمساعدتك في أي وقت.</p>
+        </div>
+        <div class="feature" data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-medal"></i>
+            <h4>جودة احترافية</h4>
+            <p>أكواد نظيفة وتصاميم مبهرة بمعايير عالمية.</p>
+        </div>
+        <div class="feature" data-aos="fade-up" data-aos-delay="400">
+            <i class="fas fa-lock"></i>
+            <h4>أمان عالي</h4>
+            <p>حماية متكاملة ضد الاختراق والثغرات.</p>
         </div>
     </div>
+
+    <!-- التذييل -->
+    <footer data-aos="fade-up" data-aos-duration="1000">
+        <p>© 2026 متجر كل شيء | جودة واحترافية</p>
+        <div class="dev-badge">بواسطة @abushama1 <i class="fas fa-crown"></i></div>
+    </footer>
 </div>
 
-<footer>
-    <div style="margin-bottom: 20px;">
-        <a href="#" style="color: #9ca3af; margin: 0 10px;"><i class="fab fa-facebook"></i></a>
-        <a href="#" style="color: #9ca3af; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
-        <a href="#" style="color: #9ca3af; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
-        <a href="#" style="color: #9ca3af; margin: 0 10px;"><i class="fab fa-discord"></i></a>
-    </div>
-    
-    <!-- توثيق المطور abushama1 -->
-    <div class="developer-credit">
-        <i class="fas fa-crown"></i>
-        تم التطوير بواسطة @abushama1
-        <i class="fas fa-check-circle"></i>
-    </div>
-    
-    <p style="margin-top: 20px;">© 2026 متجر كل شيء | جميع الحقوق محفوظة</p>
-    <p style="font-size: 0.9rem; margin-top: 10px;">نقدم أفضل الحلول التقنية بأيدي محترفين</p>
-</footer>
-
-<!-- Firebase Script -->
-<script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
-    
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyAVQnJ5yecFMLRkrKqZKsLIxZKp49zK5jY",
-        authDomain: "studio-2251445927-ce3ff.firebaseapp.com",
-        databaseURL: "https://studio-2251445927-ce3ff-default-rtdb.firebaseio.com",
-        projectId: "studio-2251445927-ce3ff",
-        storageBucket: "studio-2251445927-ce3ff.firebasestorage.app",
-        messagingSenderId: "26149017300",
-        appId: "1:26149017300:web:e50e3830e560ce7a3ecd41",
-        measurementId: "G-XF2ZC2J7XN"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    
-    console.log('🔥 Firebase initialized successfully with new config');
-</script>
-
-<!-- سكريبت منع قائمة المطور والتأثيرات -->
+<!-- تحميل مكتبة AOS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // منع فتح قائمة المطور
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        alert('❌ قائمة المطور معطلة');
-    });
-
-    document.addEventListener('keydown', function(e) {
-        // منع F12
-        if (e.key === 'F12') {
-            e.preventDefault();
-            alert('❌ تم تعطيل F12');
-        }
-        
-        // منع Ctrl+Shift+I
-        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-            e.preventDefault();
-            alert('❌ تم تعطيل أدوات المطور');
-        }
-        
-        // منع Ctrl+Shift+J
-        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-            e.preventDefault();
-            alert('❌ تم تعطيل أدوات المطور');
-        }
-        
-        // منع Ctrl+U
-        if (e.ctrlKey && e.key === 'u') {
-            e.preventDefault();
-            alert('❌ تم تعطيل عرض المصدر');
-        }
-    });
-
-    // وظيفة تغيير الثيم
-    function setTheme(theme) {
-        const body = document.body;
-        const btns = document.querySelectorAll('.theme-btn');
-        
-        if (theme === 'dark') {
-            body.classList.remove('light-theme');
-            body.classList.add('dark-theme');
-            btns[0].classList.add('active');
-            btns[1].classList.remove('active');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            body.classList.remove('dark-theme');
-            body.classList.add('light-theme');
-            btns[1].classList.add('active');
-            btns[0].classList.remove('active');
-            localStorage.setItem('theme', 'light');
-        }
-    }
-
-    // تحميل الثيم المحفوظ
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-
-    // تأثيرات حركية
-    document.addEventListener('DOMContentLoaded', function() {
-        const cards = document.querySelectorAll('.product-card');
-        cards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-        });
+    AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 50
     });
 </script>
-
 </body>
 </html>
